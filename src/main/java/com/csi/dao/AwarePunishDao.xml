@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csi.dao.AwarePunishDao">
+
+    <!--结果集映射-->
+    <resultMap id="awarePunishResult" type="awarePunish">
+        <id column="id" property="id"></id>
+        <result column="levels" property="levels"></result>
+        <result column="description" property="description"></result>
+        <result column="time" property="times"></result>
+        <result column="state" property="status"></result>
+        <!--一对一映射-->
+        <association property="student" column="stu_id" select="com.csi.dao.StudentDao.findById"></association>
+
+    </resultMap>
+
+    <insert id="insert" parameterType="awarePunish" >
+    insert into aware_punish (levels, stu_id, times, description, status ,classroom)
+    values (#{levels,jdbcType=VARCHAR}, #{student.stuId,jdbcType=VARCHAR},
+      #{times,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER},#{classroom,jdbcType=VARCHAR}
+      )
+    </insert>
+
+    <update id="update" parameterType="awarePunish" >
+        update aware_punish
+        set
+        levels = #{levels,jdbcType=VARCHAR},
+        stu_id = #{student.stuId,jdbcType=VARCHAR},
+        times = #{times,jdbcType=TIMESTAMP},
+        description = #{description,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        classroom = #{classroom,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findById" parameterType="int" resultMap="awarePunishResult">
+        select * from aware_punish where id=#{id}
+    </select>
+
+    <select id="findByLike" parameterType="map" resultMap="awarePunishResult">
+        select * from aware_punish
+        <where>
+            1=1
+            <if test="stuId != null">
+                and stu_id=#{stuId}
+            </if>
+            <if test="levels != null">
+                and levels=#{levels}
+            </if>
+            <if test="classroom != null">
+                and classroom=#{classroom}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
