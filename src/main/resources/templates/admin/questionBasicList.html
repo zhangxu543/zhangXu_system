@@ -10,14 +10,14 @@
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" th:href="@{/plugins/font-awesome/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/../plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/../css/style.css}">
 </head>
 
 <body class="hold-transition">
 <div id="app">
     <div class="content-header common-search-border1">
-        <el-button class="butAdd" @click="handleCreate"><i class="fa fa-plus" aria-hidden="true"></i> 新增试题
+        <el-button class="butAdd" @click="handleCreate"><i class="el-icon-plus" aria-hidden="true"></i> 新增试题
         </el-button>
     </div>
     <div class="app-container">
@@ -138,10 +138,10 @@
 </div>
 </body>
 <!-- 引入组件库 -->
-<script th:src="@{/js/vue.js}"></script>
-<script th:src="@{/js/element-ui.js}"></script>
-<script th:src="@{/js/base.js}"></script>
-<script th:src="@{/js/axios-0.18.0.js}"></script>
+<script th:src="@{/../js/vue.js}"></script>
+<script th:src="@{/../js/element-ui.js}"></script>
+<script th:src="@{/../js/base.js}"></script>
+<script th:src="@{/../js/axios-0.18.0.js}"></script>
 <script>
     new Vue({
         el: '#app',

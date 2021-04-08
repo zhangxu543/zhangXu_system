@@ -28,7 +28,7 @@ var nemu = {
 			"children": [{
 				"path": "/4-1",
 				"title": "方向列表",
-				"linkUrl": "industryList.html",
+				"linkUrl": "/questionBasicList",
 				"children": []
 			}]
 		}
