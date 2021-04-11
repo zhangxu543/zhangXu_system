@@ -6,22 +6,22 @@ package com.csi.domain;
  * @date 2021/3/24 17:25
  */
 public class StuDept {
-    private int id;
+    private Integer id;
     private String name;
 
     public StuDept() {
     }
 
-    public StuDept(int id, String name) {
+    public StuDept(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

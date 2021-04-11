@@ -59,6 +59,7 @@ public class StudentController {
     @ResponseBody
     public Result insert(@RequestBody Student student){
         Result result = new Result() ;
+        student.setStuPassword("123456");
         studentService.insert(student);
         result.setMessage("添加成功！");
         return result;

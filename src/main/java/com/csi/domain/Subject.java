@@ -7,24 +7,24 @@ package com.csi.domain;
  * @date 2021/3/24 17:25
  */
 public class Subject {
-    private int id;
+    private Integer id;
     private String name;
     private double credit;
 
     public Subject() {
     }
 
-    public Subject(int id, String name, double credit) {
+    public Subject(Integer id, String name, double credit) {
         this.id = id;
         this.name = name;
         this.credit = credit;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

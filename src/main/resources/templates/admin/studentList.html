@@ -37,7 +37,7 @@
                     </el-form-item>
 
                     <el-form-item label="班级" label-width="40px" prop="stuClass">
-                        <el-input placeholder="请输入" v-model="student.stuClass" style="width: 200px;"
+                        <el-input placeholder="请输入" v-model="student0.stuClass" style="width: 200px;"
                                   class="filter-item"></el-input>
                     </el-form-item>
 
@@ -372,6 +372,7 @@
                     this.$message.success(response.data.message);
                     this.findAll();
                     this.student=this.studentnull;
+                    this.major.id='';
                 }).catch(error =>{
                     console.dir(error)
                 })

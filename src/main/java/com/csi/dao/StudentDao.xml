@@ -32,13 +32,13 @@
         <where>
             1=1
             <if test="stuName != null">
-               and stu_name=#{stuName}
+               and stu_name like concat('%',#{stuName},'%')
             </if>
             <if test="stuId != null">
                 and stu_id=#{stuId}
             </if>
             <if test="stuClass != null">
-                and stu_class=#{stuClass}
+                and stu_class like concat('%',#{stuClass},'%')
             </if>
             <if test="stuSex != null">
                 and stu_sex=#{stuSex}

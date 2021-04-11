@@ -7,24 +7,24 @@ package com.csi.domain;
  * @date 2021/3/24 17:25
  */
 public class Major {
-    private int id;
+    private Integer id;
     private String name;
-    private int dept_id;
+    private Integer dept_id;
 
     public Major() {
     }
 
-    public Major(int id, String name, int dept_id) {
+    public Major(Integer id, String name, Integer dept_id) {
         this.id = id;
         this.name = name;
         this.dept_id = dept_id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class Major {
         this.name = name;
     }
 
-    public int getDept_id() {
+    public Integer getDept_id() {
         return dept_id;
     }
 
-    public void setDept_id(int dept_id) {
+    public void setDept_id(Integer dept_id) {
         this.dept_id = dept_id;
     }
 
