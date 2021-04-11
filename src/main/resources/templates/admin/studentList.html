@@ -340,6 +340,7 @@
             //查询全部方法
             findAll: function () {
                 axios.get("/student/list").then(response => {
+                    this.currentPage=1;
                     this.students = response.data;
                 }).catch(error => {
                     console.dir(error);

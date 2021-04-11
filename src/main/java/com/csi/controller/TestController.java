@@ -17,6 +17,10 @@ public class TestController {
     public String students() {
         return "admin/studentList";
     }
+    @RequestMapping("/majors")
+    public String majors() {
+        return "admin/majorList";
+    }
 
     @RequestMapping("/index")
     public String index() {

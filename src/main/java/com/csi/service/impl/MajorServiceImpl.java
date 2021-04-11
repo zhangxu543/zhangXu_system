@@ -1,4 +1,4 @@
-package com.csi.service.Impl;
+package com.csi.service.impl;
 
 import com.csi.dao.MajorDao;
 import com.csi.domain.Major;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author 张旭
  * @version 1.0
- * @date 2021/3/31 20:28
+ * @date 2021/4/11 22:55
  */
 @Service
 @Transactional
@@ -32,6 +32,11 @@ public class MajorServiceImpl implements MajorService {
     @Override
     public List<Major> listByDept(int dept_id) {
         return dao.listByDept(dept_id);
+    }
+
+    @Override
+    public List<Major> findByLike(Major major) {
+        return dao.findByLike(major);
     }
 
     @Override

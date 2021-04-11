@@ -24,7 +24,7 @@ public class MajorTest {
 
     @Test
     void select(){
-        for (Major m:dao.listByDept(1)
+        for (Major m:dao.findByLike(null)
              ) {
             System.out.println(m);
         }

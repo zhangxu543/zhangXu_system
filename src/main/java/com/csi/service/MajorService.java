@@ -13,6 +13,7 @@ public interface MajorService {
     Major findById(int id) ;
     List<Major> list();
     List<Major> listByDept(int dept_id);
+    List<Major> findByLike(Major major);
     void save(Major major) ;
     void delete(int id);
     void update(Major major);

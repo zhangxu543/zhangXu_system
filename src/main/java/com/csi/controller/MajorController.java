@@ -26,6 +26,21 @@ public class MajorController {
     @Autowired
     private MajorService majorService;
 
+
+    @RequestMapping("/findAll")
+    public List<Major> findAll(){
+        List<Major> majors = majorService.list();
+        logger.info("专业个数======"+majors.size());
+        return majors;
+    }
+    @RequestMapping("/findByLike")
+    public List<Major> findByLike(@RequestBody Major major){
+        System.out.println(major);
+        List<Major> majors = majorService.findByLike(major);
+        logger.info("专业个数======"+majors.size());
+        return majors;
+    }
+
     @RequestMapping("/findByDept")
     public List<Major> findByDept(){
         List<Major> majors = majorService.listByDept(0);

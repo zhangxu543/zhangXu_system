@@ -13,7 +13,7 @@ var nemu = {
 		{
 			"path": "2",
 			"title": "学生管理",
-			"icon": "../asserts/img/icons/qieyeguanli.png",
+			"icon": "../asserts/img/icons/yonghuguanli.png",
 			"children": [{
 				"path": "/2-1",
 				"title": "学生列表",
@@ -22,13 +22,24 @@ var nemu = {
 			}]
 		},
 		{
+			"path": "3",
+			"title": "教师管理",
+			"icon": "../asserts/img/icons/yonghuguanli.png",
+			"children": [{
+				"path": "/3-1",
+				"title": "教师列表",
+				"linkUrl": "/students",
+				"children": []
+			}]
+		},
+		{
 			"path": "4",
-			"title": "方向管理",
+			"title": "其他管理",
 			"icon": "../asserts/img/icons/fangxiangguanli.png",
 			"children": [{
 				"path": "/4-1",
-				"title": "方向列表",
-				"linkUrl": "/questionBasicList",
+				"title": "院系列表",
+				"linkUrl": "/majors",
 				"children": []
 			}]
 		}

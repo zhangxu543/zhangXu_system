@@ -10,6 +10,7 @@ public class Major {
     private Integer id;
     private String name;
     private Integer dept_id;
+    private String dept_name;
 
     public Major() {
     }
@@ -22,6 +23,14 @@ public class Major {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getDept_name() {
+        return dept_name;
+    }
+
+    public void setDept_name(String dept_name) {
+        this.dept_name = dept_name;
     }
 
     public void setId(Integer id) {
@@ -50,6 +59,7 @@ public class Major {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dept_id=" + dept_id +
+                ", dept_name='" + dept_name + '\'' +
                 '}';
     }
 }
