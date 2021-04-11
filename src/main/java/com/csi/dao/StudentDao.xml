@@ -34,6 +34,15 @@
             <if test="stuName != null">
                and stu_name=#{stuName}
             </if>
+            <if test="stuId != null">
+                and stu_id=#{stuId}
+            </if>
+            <if test="stuClass != null">
+                and stu_class=#{stuClass}
+            </if>
+            <if test="stuSex != null">
+                and stu_sex=#{stuSex}
+            </if>
         </where>
     </select>
 
@@ -115,7 +124,7 @@
                 #{politic.id,jdbcType=INTEGER},
             </if>
             <if test="nation != null">
-                #{nationId.id,jdbcType=INTEGER},
+                #{nation.id,jdbcType=INTEGER},
             </if>
             <if test="stuIdcard != null">
                 #{stuIdcard,jdbcType=VARCHAR},

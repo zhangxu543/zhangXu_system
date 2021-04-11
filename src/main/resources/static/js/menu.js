@@ -12,12 +12,12 @@ var nemu = {
 		},
 		{
 			"path": "2",
-			"title": "企业管理",
+			"title": "学生管理",
 			"icon": "../asserts/img/icons/qieyeguanli.png",
 			"children": [{
 				"path": "/2-1",
-				"title": "企业列表",
-				"linkUrl": "/questionBasicList",
+				"title": "学生列表",
+				"linkUrl": "/students",
 				"children": []
 			}]
 		},

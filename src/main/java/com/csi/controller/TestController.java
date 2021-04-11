@@ -13,6 +13,11 @@ public class TestController {
         return "admin/questionBasicList";
     }
 
+    @RequestMapping("/students")
+    public String students() {
+        return "admin/studentList";
+    }
+
     @RequestMapping("/index")
     public String index() {
         return "index";

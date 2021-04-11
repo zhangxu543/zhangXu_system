@@ -44,10 +44,12 @@
                                        v-for="item in baseData.questionsType"></el-option>
                         </el-select>
                     </el-form-item>
+
                     <el-form-item label="关键字" label-width="60px" prop="keyWord">
                         <el-input placeholder="请输入" v-model="requestParameters.keyWord" style="width: 200px;"
                                   class="filter-item"></el-input>
                     </el-form-item>
+
                     <el-form-item>
                         <el-button @click="handleRest">清除</el-button>
                         <el-button type="primary" class="butOK" @click="handleSearch">搜索</el-button>

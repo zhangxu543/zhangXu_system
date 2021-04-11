@@ -60,12 +60,20 @@ public class Student {
         this.stuName = stuName;
     }
 
-    public String getStuNex() {
+    public String getStuSex() {
         return stuSex;
     }
 
-    public void setStuNex(String stuNex) {
-        this.stuSex = stuNex;
+    public void setStuSex(String stuSex) {
+        this.stuSex = stuSex;
+    }
+
+    public String getStuIdcard() {
+        return stuIdcard;
+    }
+
+    public void setStuIdcard(String stuIdcard) {
+        this.stuIdcard = stuIdcard;
     }
 
     public String getStuPassword() {

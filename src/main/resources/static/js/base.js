@@ -1,13 +1,13 @@
 var app_path = "/mm";
 var app_url = "http://localhost:8080/mm";
 var base = {
-	"isDis": [{
+	"sex": [{
 			"id": 0,
-			"value": "启用"
+			"value": "男"
 		},
 		{
 			"id": 1,
-			"value": "禁用"
+			"value": "女"
 		}
 	],
 	"isShow": [{
