@@ -27,7 +27,7 @@ public interface MajorDao {
     @Select("SELECT * FROM major where dept_id=#{dept_id}")
     List<Major> listByDept(int dept_id);
 
-    @Insert("INSERT INTO major(name) VALUE(#{name})")
+    @Insert("INSERT INTO major(name,dept_id) VALUE(#{name},#{dept_id})")
     void save(Major major) ;
 
     @Delete("delete from major where id=#{id}")

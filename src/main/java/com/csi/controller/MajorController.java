@@ -2,6 +2,7 @@ package com.csi.controller;
 
 import com.csi.domain.Major;
 import com.csi.service.MajorService;
+import com.csi.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,22 @@ public class MajorController {
         return majors;
     }
 
+    @RequestMapping("/insert")
+    public Result insert(@RequestBody Major major){
+        Result result = new Result() ;
+        majorService.save(major);
+        logger.info("新增专业信息======"+major);
+        result.setMessage("添加成功！");
+        return result;
+    }
+
+    @RequestMapping("/deleteMajor")
+    public Result delete(@RequestBody Major major){
+        logger.info("新增专业信息======"+major);
+        Result result = new Result() ;
+        majorService.delete(major.getId());
+        result.setMessage("添加成功！");
+        return result;
+    }
 
 }
