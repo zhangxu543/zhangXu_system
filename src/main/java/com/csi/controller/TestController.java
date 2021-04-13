@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
     @RequestMapping("/questionBasicList")
     public String firstpage() {
-        return "admin/questionBasicList";
+        return "index0";
     }
 
     @RequestMapping("/students")
     public String students() {
         return "admin/studentList";
     }
+
     @RequestMapping("/majors")
     public String majors() {
         return "admin/majorList";
@@ -32,6 +33,20 @@ public class TestController {
         return "admin/index";
     }
 
+    @RequestMapping("/depts")
+    public String depts() {
+        return "admin/deptList";
+    }
+
+    @RequestMapping("/schoolRolls")
+    public String schoolRolls() {
+        return "admin/schoolRollList";
+    }
+
+    @RequestMapping("/subjects")
+    public String subjects() {
+        return "admin/subjectList";
+    }
 
 
 

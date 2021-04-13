@@ -68,10 +68,10 @@ public class MajorController {
 
     @RequestMapping("/deleteMajor")
     public Result delete(@RequestBody Major major){
-        logger.info("新增专业信息======"+major);
+        logger.info("删除专业信息======"+major);
         Result result = new Result() ;
         majorService.delete(major.getId());
-        result.setMessage("添加成功！");
+        result.setMessage("删除成功！");
         return result;
     }
 

@@ -41,7 +41,23 @@ var nemu = {
 				"title": "院系列表",
 				"linkUrl": "/majors",
 				"children": []
-			}]
+			},{
+				"path": "/4-2",
+				"title": "部门列表",
+				"linkUrl": "/depts",
+				"children": []
+			},{
+				"path": "/4-3",
+				"title": "学籍状态列表",
+				"linkUrl": "/schoolRolls",
+				"children": []
+			},{
+				"path": "/4-4",
+				"title": "科目列表",
+				"linkUrl": "/subjects",
+				"children": []
+			}
+			]
 		}
 	]
 }
