@@ -20,6 +20,9 @@ public interface SubjectDao {
     @Select("SELECT * FROM Subject WHERE id=#{id}")
     Subject findById(int id) ;
 
+    @Select("SELECT * FROM Subject WHERE name like concat('%',#{name},'%')")
+    List<Subject> findByLike(String name) ;
+
     @Select("SELECT * FROM subject")
     List<Subject> list();
 

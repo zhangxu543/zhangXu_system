@@ -13,14 +13,14 @@ public class AwarePunish {
     private Student student;
     private String levels;
     private String description;
-    private Date times;
+    private String times;
     private int status;
     private String classroom;
 
     public AwarePunish() {
     }
 
-    public AwarePunish(int id, Student student, String levels, String description, Date time, int state) {
+    public AwarePunish(int id, Student student, String levels, String description, String time, int state) {
         this.id = id;
         this.student = student;
         this.levels = levels;
@@ -67,12 +67,27 @@ public class AwarePunish {
         this.description = description;
     }
 
-    public Date getTime() {
+    public String getTimes() {
+
+
+
         return times;
     }
 
-    public void setTime(Date time) {
-        this.times = time;
+    public void setTimes(String times) {
+        this.times = times;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 
     public int getState() {

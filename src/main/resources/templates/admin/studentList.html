@@ -67,17 +67,22 @@
                         <el-table-column
                                 width="100"
                                 prop="stuId"
-                                label="学生学号">
+                                label="学号">
                         </el-table-column>
                         <el-table-column
                                 width="100"
                                 prop="stuName"
-                                label="学生姓名">
+                                label="姓名">
+                        </el-table-column>
+                        <el-table-column
+                                width="100"
+                                prop="stuSex"
+                                label="性别">
                         </el-table-column>
                         <el-table-column
                                 width="100"
                                 prop="stuClass"
-                                label="学生班级">
+                                label="班级">
                         </el-table-column>
 
                         <el-table-column
@@ -86,9 +91,10 @@
                                 label="专业">
                         </el-table-column>
 
-                        <el-table-column width="150">
+                        <el-table-column width="300">
                             <template slot-scope="scope">
                                 <el-button type="primary" round @click="">查看详情</el-button>
+                                <el-button type="primary" round @click="handleCreate0(scope.row)">奖罚</el-button>
                             </template>
                         </el-table-column>
 
@@ -164,6 +170,58 @@
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="handleCreateCancel">取 消</el-button>
                     <el-button type="primary" @click="insert()">确 定</el-button>
+                </div>
+            </el-dialog>
+
+            <el-dialog title="奖罚" align="center" :visible.sync="dialogFormVisible0" width="40%" top="8vh">
+                <el-form label-width="120px" :model="awarePunish" :rules="rules" ref="awarePunish">
+                    <el-form-item label="学号：" prop="stuId">
+                        <el-input readonly v-model="awarePunish.student.stuId" autocomplete="off"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="姓名：" prop="stuName">
+                        <el-input readonly v-model="awarePunish.student.stuName" autocomplete="off"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="奖罚：" prop="status">
+                        <el-select v-model="awarePunish.status" placeholder="请选择">
+                            <el-option
+                                    v-for="item in baseData.AwarePunishStatus"
+                                    :key="item.id"
+                                    :label="item.value"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="处罚等级：" prop="levels">
+                        <el-select v-model="awarePunish.levels" placeholder="奖励不用选择">
+                            <el-option
+                                    v-for="item in baseData.AwarePunishLevels"
+                                    :key="item.value"
+                                    :label="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="日期" prop="times">
+                        <el-date-picker
+                                value-format="yyyy-MM-dd"
+                                v-model="awarePunish.times"
+                                type="date"
+                                placeholder="    选择日期"
+                                :picker-options="pickerOptions"
+                                style="line-height: 40px">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="具体描述：" prop="stuId">
+                        <el-input v-model="awarePunish.description" autocomplete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="handleCreateCancel0">取 消</el-button>
+                    <el-button type="primary" @click="insertAwarePunish()">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- end -->
@@ -277,7 +335,80 @@
                         name:''
                     }
                 },
-
+                awarePunish:{
+                    id:'',
+                    student: {
+                        stuId:'',
+                        stuName:'',
+                        stuSex:'',
+                        stuPassword:'',
+                        stuNative:'',
+                        stuBirthday:'',
+                        major:{
+                            id:'',
+                            name:'',
+                            dept_id:''
+                        },
+                        stuClass:'',
+                        stuDorm:'',
+                        politic:{
+                            id:'',
+                            name:''
+                        },
+                        nation:{
+                            id:'',
+                            name:''
+                        },
+                        stuIdcard:'',
+                        stuAddress:'',
+                        schoolRoll:{
+                            id:'',
+                            name:''
+                        }
+                    },
+                    levels:'',
+                    description:'',
+                    times:'',
+                    status:'',
+                    classroom:''
+                },
+                awarePunishNull:{
+                    id:'',
+                    student: {
+                        stuId:'',
+                        stuName:'',
+                        stuSex:'',
+                        stuPassword:'',
+                        stuNative:'',
+                        stuBirthday:'',
+                        major:{
+                            id:'',
+                            name:'',
+                            dept_id:''
+                        },
+                        stuClass:'',
+                        stuDorm:'',
+                        politic:{
+                            id:'',
+                            name:''
+                        },
+                        nation:{
+                            id:'',
+                            name:''
+                        },
+                        stuIdcard:'',
+                        stuAddress:'',
+                        schoolRoll:{
+                            id:'',
+                            name:''
+                        }
+                    },
+                    levels:'',
+                    description:'',
+                    times:'',
+                    status:'',
+                    classroom:''
+                },
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 5,// 每页的数据条数
@@ -293,6 +424,7 @@
                 items: [],
                 baseData: base,
                 dialogFormVisible: false,
+                dialogFormVisible0: false,
                 form: {
                     dirName: ''
                 },
@@ -337,6 +469,18 @@
 
         methods: {
 
+            insertAwarePunish:function (){
+                alert(this.awarePunish.times)
+                axios.post("/awarePunish/insert",this.awarePunish).then(response =>{
+                    this.$message.success(response.data.message);
+                    this.awarePunish=this.awarePunishNull;
+
+                }).catch(error =>{
+                    console.dir(error)
+                })
+                this.dialogFormVisible0 = false;
+
+            },
             //查询全部方法
             findAll: function () {
                 axios.get("/student/list").then(response => {
@@ -410,18 +554,22 @@
                 this.findDept();
                 this.dialogFormVisible = true;
             },
-            //新增确定
-            handleCreateConfirm() {
-                var t = this;
-                this.$refs['form'].validate((valid) => {
-                    if (valid) {
-                    }
-                });
+            // 新增
+            handleCreate0(row) {
+                this.awarePunish.student.stuId=row.stuId;
+                this.awarePunish.student.stuName=row.stuName;
+                this.dialogFormVisible0 = true;
             },
+
             //新增取消
             handleCreateCancel() {
                 this.student=this.studentnull;
                 this.dialogFormVisible = false;
+            },
+            //新增取消
+            handleCreateCancel0() {
+                this.dialogFormVisible0 = false;
+                this.awarePunish=this.awarePunishNull;
             },
 
             // 删除

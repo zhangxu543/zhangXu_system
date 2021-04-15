@@ -32,6 +32,16 @@ public class SubjectController {
         return list;
     }
 
+    @RequestMapping("/findByLike")
+    public List<Subject> findByLike(@RequestBody Subject subject){
+        logger.info("查询条件======"+subject.getName());
+        if (subject.getName()==null)
+            subject.setName(" ");
+        List<Subject> list = service.findByLike(subject.getName());
+        logger.info("科目个数======"+list.size());
+        return list;
+    }
+
     @RequestMapping("/insert")
     public Result insert(@RequestBody Subject subject){
         Result result = new Result() ;

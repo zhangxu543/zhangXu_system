@@ -21,6 +21,11 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectDao dao;
 
     @Override
+    public  List<Subject> findByLike(String name) {
+        return dao.findByLike(name);
+    }
+
+    @Override
     public Subject findById(int id) {
         return dao.findById(id);
     }

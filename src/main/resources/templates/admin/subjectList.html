@@ -186,8 +186,8 @@
             findByLike: function () {
                 axios.post("/subject/findByLike", this.subject0).then(response => {
                     this.currentPage = 1;
+                    this.subject0= {};
                     this.subjects = response.data;
-                    this.subject0=this.subjectNull;
                 }).catch(error => {
                     console.dir(error)
                 })
@@ -233,7 +233,7 @@
 
             //新增取消
             handleCreateCancel() {
-                this.subject = this.subjectNull;
+                this.subject = {};
                 this.dialogFormVisible = false;
             },
 

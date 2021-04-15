@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public interface SubjectService {
+    List<Subject> findByLike(String name) ;
     Subject findById(int id) ;
     List<Subject> list();
     void save(Subject subject) ;

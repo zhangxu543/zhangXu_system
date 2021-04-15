@@ -7,7 +7,7 @@
         <id column="id" property="id"></id>
         <result column="levels" property="levels"></result>
         <result column="description" property="description"></result>
-        <result column="time" property="times"></result>
+        <result column="times" property="times"></result>
         <result column="state" property="status"></result>
         <!--一对一映射-->
         <association property="student" column="stu_id" select="com.csi.dao.StudentDao.findById"></association>
@@ -17,7 +17,7 @@
     <insert id="insert" parameterType="awarePunish" >
     insert into aware_punish (levels, stu_id, times, description, status ,classroom)
     values (#{levels,jdbcType=VARCHAR}, #{student.stuId,jdbcType=VARCHAR},
-      #{times,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR},
+      #{times,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER},#{classroom,jdbcType=VARCHAR}
       )
     </insert>
@@ -27,7 +27,7 @@
         set
         levels = #{levels,jdbcType=VARCHAR},
         stu_id = #{student.stuId,jdbcType=VARCHAR},
-        times = #{times,jdbcType=TIMESTAMP},
+        times = #{times,jdbcType=VARCHAR},
         description = #{description,jdbcType=VARCHAR},
         status = #{status,jdbcType=INTEGER},
         classroom = #{classroom,jdbcType=VARCHAR}

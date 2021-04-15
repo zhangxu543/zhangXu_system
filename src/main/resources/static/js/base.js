@@ -10,6 +10,24 @@ var base = {
 			"value": "女"
 		}
 	],
+	"AwarePunishStatus": [{
+		"id": 0,
+		"value": "奖励"
+	},
+		{
+			"id": 1,
+			"value": "处罚"
+		}
+	],
+	"AwarePunishLevels": [{
+		"id": 0,
+		"value": "警告"
+	},
+		{
+			"id": 1,
+			"value": "留校察看"
+		}
+	],
 	"isShow": [{
 			"id": 0,
 			"value": "是"
