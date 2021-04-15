@@ -14,7 +14,7 @@ public class Student {
     private String stuSex;//性别
     private String stuPassword;//密码
     private String stuNative; //籍贯
-    private Date stuBirthday;//生日
+    private String stuBirthday;//生日
     private Major major;//专业
     private String stuClass;//班级
     private String stuDorm;//宿舍
@@ -27,7 +27,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(String stuId, String stuName, String stuNex, String stuPassword, String stuNative, Date stuBirthday, Major major, String stuClass, String stuDorm, Politic politic, Nation nation, String stuIDcard, String stuAddress, SchoolRoll schoolRoll) {
+    public Student(String stuId, String stuName, String stuNex, String stuPassword, String stuNative, String stuBirthday, Major major, String stuClass, String stuDorm, Politic politic, Nation nation, String stuIDcard, String stuAddress, SchoolRoll schoolRoll) {
         this.stuId = stuId;
         this.stuName = stuName;
         this.stuSex = stuNex;
@@ -92,11 +92,11 @@ public class Student {
         this.stuNative = stuNative;
     }
 
-    public Date getStuBirthday() {
+    public String getStuBirthday() {
         return stuBirthday;
     }
 
-    public void setStuBirthday(Date stuBirthday) {
+    public void setStuBirthday(String stuBirthday) {
         this.stuBirthday = stuBirthday;
     }
 

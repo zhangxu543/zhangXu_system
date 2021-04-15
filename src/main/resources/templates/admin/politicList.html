@@ -17,9 +17,9 @@
 <body class="hold-transition">
 <div id="app">
     <div class="content-header common-search-border1">
-       <!-- <el-button class="butAdd" @click="handleCreate">
-            <i class="el-icon-plus" aria-hidden="true"></i> 新增政治面貌信息
-        </el-button>-->
+         <el-button class="butAdd" @click="handleCreate">
+             <i class="el-icon-plus" aria-hidden="true"></i> 新增政治面貌信息
+         </el-button>
     </div>
     <div class="app-container">
         <div class="box common-search-border2">
@@ -39,12 +39,12 @@
                         <el-table-column
                                 width="140"
                                 prop="id"
-                                label="部门编号">
+                                label="编号">
                         </el-table-column>
                         <el-table-column
                                 width="300"
                                 prop="name"
-                                label="部门名称">
+                                label="名称">
                         </el-table-column>
 
                         <el-table-column width="150">
@@ -71,11 +71,11 @@
 
             </div>
             <!-- 新增方向弹层 -->
-            <el-dialog title="新增部门" align="center" :visible.sync="dialogFormVisible" width="40%" top="8vh">
+            <el-dialog title="新增政治面貌" align="center" :visible.sync="dialogFormVisible" width="40%" top="8vh">
                 <el-form label-width="120px" :model="dept" :rules="rules" ref="dept">
 
-                    <el-form-item label="部门名称：" prop="name">
-                        <el-input placeholder="请输入专部门名称" v-model="dept.name" autocomplete="off"></el-input>
+                    <el-form-item label="名称：" prop="name">
+                        <el-input placeholder="请输入政治面貌名称" v-model="dept.name" autocomplete="off"></el-input>
                     </el-form-item>
 
                 </el-form>
@@ -84,7 +84,6 @@
                     <el-button type="primary" @click="insert()">确 定</el-button>
                 </div>
             </el-dialog>
-
 
 
             <!-- end -->
@@ -138,19 +137,22 @@
 
         methods: {
 
-            delete0:function(row) {
-                axios.post("/dept/delete",row).then(response =>{
-                    this.$message.success(response.data.message);
-                    this.findAll();
-                    this.findDept();
-                }).catch(error =>{
-                    console.dir(error)
-                })
+            delete0: function (row) {
+
+                if(confirm("确定要删除这条数据吗？")){
+                    axios.post("/politic/delete", row).then(response => {
+                        this.$message.success(response.data.message);
+                        this.findAll();
+                    }).catch(error => {
+                        console.dir(error)
+                    })
+                }
+
             },
 
             //查询全部方法
             findAll: function () {
-                axios.get("/dept/findAll").then(response => {
+                axios.get("/politic/findAll").then(response => {
                     this.currentPage = 1;
                     this.depts = response.data;
                 }).catch(error => {
@@ -158,12 +160,12 @@
                 });
             },
 
-            insert:function (){
-                axios.post("/dept/insert",this.dept).then(response =>{
+            insert: function () {
+                axios.post("/politic/insert", this.dept).then(response => {
                     this.$message.success(response.data.message);
-                    this.dept= {};
+                    this.dept = {};
                     this.findAll();
-                }).catch(error =>{
+                }).catch(error => {
                     console.dir(error)
                 })
                 this.dialogFormVisible = false;

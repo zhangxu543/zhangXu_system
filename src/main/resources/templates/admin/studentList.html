@@ -93,7 +93,7 @@
 
                         <el-table-column width="300">
                             <template slot-scope="scope">
-                                <el-button type="primary" round @click="">查看详情</el-button>
+                                <el-button type="primary" round @click="selectOne(scope.row)">查看详情</el-button>
                                 <el-button type="primary" round @click="handleCreate0(scope.row)">奖罚</el-button>
                             </template>
                         </el-table-column>
@@ -231,7 +231,6 @@
 </div>
 </body>
 <!-- 引入组件库 -->
-
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
 <script th:src="@{/../js/vue.js}"></script>
 <script th:src="@{/../js/element-ui.js}"></script>
@@ -468,7 +467,9 @@
         },
 
         methods: {
-
+            selectOne:function (row){
+                window.location.href="student/findById/"+row.stuId
+            },
             insertAwarePunish:function (){
                 alert(this.awarePunish.times)
                 axios.post("/awarePunish/insert",this.awarePunish).then(response =>{
@@ -583,9 +584,7 @@
                 });
             },
 
-            selectOne:function(row) {
-                window.location.href="contactInfo.html?id="+row.contract_id;
-            }
+
         },
 
         mounted: function () {

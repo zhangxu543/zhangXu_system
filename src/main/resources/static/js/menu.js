@@ -56,6 +56,11 @@ var nemu = {
 				"title": "科目列表",
 				"linkUrl": "/subjects",
 				"children": []
+			},{
+				"path": "/4-4",
+				"title": "政治面貌列表",
+				"linkUrl": "/politics",
+				"children": []
 			}
 			]
 		}

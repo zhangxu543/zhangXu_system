@@ -48,6 +48,10 @@ public class TestController {
         return "admin/subjectList";
     }
 
+    @RequestMapping("/politics")
+    public String politics() {
+        return "admin/politicList";
+    }
 
 
 }

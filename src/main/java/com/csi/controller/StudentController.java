@@ -9,10 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +67,22 @@ public class StudentController {
         studentService.insert(student);
         result.setMessage("添加成功！");
         return result;
+    }
+
+    @RequestMapping("findById/{id}")
+    public ModelAndView findById(@PathVariable(value = "id") String id) {
+        logger.info("学生id======"+id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/studentInfo");
+        modelAndView.addObject("studentInfo", studentService.findById(id));
+        return modelAndView;
+    }
+
+    @RequestMapping("findById0/{id}")
+    @ResponseBody
+    public Student findById0(@PathVariable(value = "id") String id) {
+        logger.info("学生id======"+id);
+        return studentService.findById(id);
     }
 
 }

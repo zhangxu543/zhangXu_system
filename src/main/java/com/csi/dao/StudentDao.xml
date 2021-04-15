@@ -35,7 +35,7 @@
                and stu_name like concat('%',#{stuName},'%')
             </if>
             <if test="stuId != null">
-                and stu_id=#{stuId}
+                and stu_id like concat('%',#{stuId},'%')
             </if>
             <if test="stuClass != null">
                 and stu_class like concat('%',#{stuClass},'%')
@@ -103,13 +103,13 @@
                 #{stuSex,jdbcType=VARCHAR},
             </if>
             <if test="stuPassword != null">
-                #{stuPassword,jdbcType=VARCHAR},
+                #{stuPassword,jdbcType=String},
             </if>
             <if test="stuNative != null">
                 #{stuNative,jdbcType=VARCHAR},
             </if>
             <if test="stuBirthday != null">
-                #{stuBirthday,jdbcType=DATE},
+                #{stuBirthday,jdbcType=String},
             </if>
             <if test="major != null">
                 #{major.id},
@@ -154,7 +154,7 @@
                 stu_native = #{stuNative,jdbcType=VARCHAR},
             </if>
             <if test="stuBirthday != null">
-                stu_birthday = #{stuBirthday,jdbcType=DATE},
+                stu_birthday = #{stuBirthday,jdbcType=String},
             </if>
             <if test="major != null">
                 major_id = #{major.id,jdbcType=INTEGER},
