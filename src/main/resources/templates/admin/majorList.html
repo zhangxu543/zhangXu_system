@@ -253,7 +253,10 @@
             delete0:function(row) {
                 axios.post("/major/deleteMajor",row).then(response =>{
                     this.$message.success(response.data.message);
-                    this.findAll();
+                    if(row.dept_id==0)
+                        this.findDepts();
+                    else
+                        this.findAll();
                     this.findDept();
                 }).catch(error =>{
                     console.dir(error)
@@ -315,7 +318,7 @@
                 axios.post("/major/insert",this.major1).then(response =>{
                     this.$message.success(response.data.message);
                     this.major1= this.majorNull;
-                    this.findAll();
+                    this.findDepts();
                     this.findDept();
                 }).catch(error =>{
                     console.dir(error)
