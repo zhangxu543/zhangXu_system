@@ -52,8 +52,9 @@ public class TeacherController {
     public Result insert(@RequestBody Teacher teacher){
         Result result = new Result() ;
         teacher.setTeaState("否");
+        teacher.setTeaPassword("123456");
         service.insert(teacher);
-        logger.info("新增院系名称======"+teacher);
+        logger.info("新增教师信息======"+teacher);
         result.setMessage("添加成功！");
         return result;
     }
