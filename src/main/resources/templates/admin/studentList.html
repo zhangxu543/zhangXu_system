@@ -187,9 +187,9 @@
                         <el-select v-model="awarePunish.status" placeholder="请选择">
                             <el-option
                                     v-for="item in baseData.AwarePunishStatus"
-                                    :key="item.id"
+                                    :key="item.value"
                                     :label="item.value"
-                                    :value="item.id">
+                                    :value="item.value">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -471,7 +471,6 @@
                 window.location.href="student/findById/"+row.stuId
             },
             insertAwarePunish:function (){
-                alert(this.awarePunish.times)
                 axios.post("/awarePunish/insert",this.awarePunish).then(response =>{
                     this.$message.success(response.data.message);
                     this.awarePunish=this.awarePunishNull;

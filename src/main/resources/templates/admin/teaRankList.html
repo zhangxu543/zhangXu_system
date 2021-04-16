@@ -18,7 +18,7 @@
 <div id="app">
     <div class="content-header common-search-border1">
         <el-button class="butAdd" @click="handleCreate">
-            <i class="el-icon-plus" aria-hidden="true"></i> 新增部门信息
+            <i class="el-icon-plus" aria-hidden="true"></i> 新增级别信息
         </el-button>
     </div>
     <div class="app-container">
@@ -65,12 +65,12 @@
                         <el-table-column
                                 width="140"
                                 prop="id"
-                                label="部门编号">
+                                label="编号">
                         </el-table-column>
                         <el-table-column
                                 width="300"
                                 prop="name"
-                                label="部门名称">
+                                label="级别">
                         </el-table-column>
 
                         <el-table-column width="150">
@@ -165,7 +165,7 @@
         methods: {
 
             delete0:function(row) {
-                axios.post("/teaDept/delete",row).then(response =>{
+                axios.post("/teaRank/delete",row).then(response =>{
                     this.$message.success(response.data.message);
                     this.findAll();
                     this.findDept();
@@ -176,7 +176,7 @@
 
             //查询全部方法
             findAll: function () {
-                axios.get("/teaDept/findAll").then(response => {
+                axios.get("/teaRank/findAll").then(response => {
                     this.currentPage = 1;
                     this.depts = response.data;
                 }).catch(error => {
@@ -185,7 +185,7 @@
             },
 
             insert:function (){
-                axios.post("/teaDept/insert",this.dept).then(response =>{
+                axios.post("/teaRank/insert",this.dept).then(response =>{
                     this.$message.success(response.data.message);
                     this.dept= {};
                     this.findAll();

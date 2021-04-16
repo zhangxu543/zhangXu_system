@@ -28,9 +28,19 @@ public class TestController {
         return "index";
     }
 
-    @RequestMapping("/login")
-    public String login() {
+    @RequestMapping("/adminIndex")
+    public String adminLogin() {
         return "admin/index";
+    }
+
+    @RequestMapping("/teacherIndex")
+    public String teacherLogin() {
+        return "teacher/index";
+    }
+
+    @RequestMapping("/studentIndex")
+    public String studentLogin() {
+        return "student/index";
     }
 
     @RequestMapping("/depts")
@@ -53,5 +63,19 @@ public class TestController {
         return "admin/politicList";
     }
 
+    @RequestMapping("/awarePunishes")
+    public String awarePunishes() {
+        return "admin/awarePunishList";
+    }
+
+    @RequestMapping("/teachers")
+    public String teachers() {
+        return "admin/teacherList";
+    }
+
+    @RequestMapping("/teaRanks")
+    public String teaRanks() {
+        return "admin/teaRankList";
+    }
 
 }

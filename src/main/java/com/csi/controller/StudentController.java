@@ -1,6 +1,9 @@
 package com.csi.controller;
 
 
+import com.csi.domain.Nation;
+import com.csi.domain.Politic;
+import com.csi.domain.SchoolRoll;
 import com.csi.domain.Student;
 import com.csi.service.StudentService;
 import com.csi.util.Result;
@@ -37,6 +40,7 @@ public class StudentController {
         logger.info("学生个数======"+list.size());
         return list;
     }
+
     @RequestMapping("/findByLike")
     @ResponseBody
     public List<Student> findByLike(@RequestBody Student student){
@@ -64,6 +68,15 @@ public class StudentController {
     public Result insert(@RequestBody Student student){
         Result result = new Result() ;
         student.setStuPassword("123456");
+        Nation nation=new Nation();
+        nation.setId(1);
+        student.setNation(nation);
+        Politic politic=new Politic();
+        politic.setId(1);
+        student.setPolitic(politic);
+        SchoolRoll schoolRoll=new SchoolRoll();
+        schoolRoll.setId(1);
+        student.setSchoolRoll(schoolRoll);
         studentService.insert(student);
         result.setMessage("添加成功！");
         return result;
@@ -82,7 +95,19 @@ public class StudentController {
     @ResponseBody
     public Student findById0(@PathVariable(value = "id") String id) {
         logger.info("学生id======"+id);
-        return studentService.findById(id);
+        Student student = studentService.findById(id);
+        logger.info("单个学生信息======"+student);
+        return student;
+    }
+
+    @RequestMapping("/updateStudent")
+    @ResponseBody
+    public Result updateStudent(@RequestBody Student student){
+        Result result = new Result() ;
+        logger.info("修改后学生信息======"+student);
+        studentService.updateByID(student);
+        result.setMessage("修改成功！");
+        return result;
     }
 
 }

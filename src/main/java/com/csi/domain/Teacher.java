@@ -14,13 +14,13 @@ public class Teacher {
     private String teaPhone;
     private String teaAddress;
     private TeaDept dept;
-    private int teaState;//判断是否管理员
+    private String teaState;//判断是否管理员
     private TeaRank rank;
 
     public Teacher() {
     }
 
-    public Teacher(String teaId, String teaPassword, String teaName, String teaSex, String teaPhone, String teaAddress, TeaDept dept, int teaState, TeaRank rank) {
+    public Teacher(String teaId, String teaPassword, String teaName, String teaSex, String teaPhone, String teaAddress, TeaDept dept, String teaState, TeaRank rank) {
         this.teaId = teaId;
         this.teaPassword = teaPassword;
         this.teaName = teaName;
@@ -88,11 +88,11 @@ public class Teacher {
         this.dept = dept;
     }
 
-    public int getTeaState() {
+    public String getTeaState() {
         return teaState;
     }
 
-    public void setTeaState(int teaState) {
+    public void setTeaState(String teaState) {
         this.teaState = teaState;
     }
 

@@ -12,6 +12,7 @@ import java.util.Map;
 
 public interface StudentService {
     Student findById(String stuId);
+    Student login(String stuId,  String password);
     void insert(Student student);
     void updateByID(Student student);
     List<Student> findByLike(Map<String,Object> map);

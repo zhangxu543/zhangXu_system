@@ -15,6 +15,6 @@ import java.util.Map;
 public interface AwarePunishDao {
     void insert(AwarePunish awarePunish);
     void update(AwarePunish awarePunish);
-    List<AwarePunish> findByLike(Map<String, Object> map);
+    List<AwarePunish> findByLike(AwarePunish awarePunish);
     AwarePunish findById(int id);
 }

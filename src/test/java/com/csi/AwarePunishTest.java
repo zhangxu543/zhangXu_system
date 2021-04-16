@@ -43,7 +43,7 @@ public class AwarePunishTest {
         student.setStuId("11");
         student.setStuClass("1345");
         awarePunish.setStudent(student);
-        awarePunish.setState(0);
+
         dao.insert(awarePunish);
     }
     @Test
@@ -53,7 +53,6 @@ public class AwarePunishTest {
         student.setStuId("11");
         student.setStuClass("1345");
         awarePunish.setStudent(student);
-        awarePunish.setState(3);
         awarePunish.setDescription("66666666");
 
         awarePunish.setId(1);
@@ -66,11 +65,11 @@ public class AwarePunishTest {
         //map.put("classroom","");
         //map.put("stuId","11");
         System.out.println("============");
-        for (AwarePunish a:dao.findByLike(map)
+       /* for (AwarePunish a:dao.findByLike(map)
              ) {
             System.out.println(a);
         }
-
+*/
 
     }
 

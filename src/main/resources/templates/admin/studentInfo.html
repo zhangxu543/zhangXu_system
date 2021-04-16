@@ -98,11 +98,21 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="学籍状态：" prop="schoolRoll">
+                <el-select v-model="student.schoolRoll.id" placeholder="请选择">
+                    <el-option
+                            v-for="item in schoolRollList"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
 
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="handleCreateCancel">取 消</el-button>
-            <el-button type="primary" @click="findById()">确 定</el-button>
+            <el-button type="primary" @click="updateStudent()">确 定</el-button>
         </div>
     </el-dialog>
 
@@ -212,6 +222,7 @@
                     name: ''
                 }
             },
+            schoolRollList:[],
             dialogFormVisible: false,
             stuDepts:[],
             major:{
@@ -256,11 +267,6 @@
         },
         methods: {
 
-            findById: function () {
-                alert(this.$refs.getValue.value)
-            },
-
-
             //返回上一级
             back: function () {
                 window.history.back();
@@ -286,24 +292,42 @@
                     console.dir(error)
                 })
             },
-
-
-            // 修改
-            handleCreate() {
+            findSchoolRolls:function (){
+                axios.get("/schoolRoll/findAll").then(response => {
+                    this.schoolRollList = response.data;
+                }).catch(error => {
+                    console.dir(error);
+                });
+            },
+            findById:function (){
                 axios.get("/student/findById0/" + this.$refs.getValue.value).then(response => {
                     this.student = response.data;
                 }).catch(error => {
                     console.dir(error);
                 });
+            },
+            updateStudent:function () {
+                axios.post("/student/updateStudent", this.student).then(response => {
+                    this.$message.success(response.data.message);
+                }).catch(error => {
+                    console.dir(error);
+                });
+                //window.location.href="/student/findById/"+this.$refs.getValue.value
+                this.dialogFormVisible = false;
+
+            },
+            // 修改
+            handleCreate() {
+                this.findById();
                 this.findDept();
                 this.findPolitics();
+                this.findSchoolRolls();
                 this.dialogFormVisible = true;
-
             },
 
             //新增取消
             handleCreateCancel: function () {
-
+                this.findById();
                 this.dialogFormVisible = false;
             },
         },

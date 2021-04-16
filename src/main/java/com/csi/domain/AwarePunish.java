@@ -14,13 +14,13 @@ public class AwarePunish {
     private String levels;
     private String description;
     private String times;
-    private int status;
+    private String status;
     private String classroom;
 
     public AwarePunish() {
     }
 
-    public AwarePunish(int id, Student student, String levels, String description, String time, int state) {
+    public AwarePunish(int id, Student student, String levels, String description, String time, String state) {
         this.id = id;
         this.student = student;
         this.levels = levels;
@@ -68,9 +68,6 @@ public class AwarePunish {
     }
 
     public String getTimes() {
-
-
-
         return times;
     }
 
@@ -78,24 +75,16 @@ public class AwarePunish {
         this.times = times;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
-    }
-
-    public int getState() {
-        return status;
-    }
-
-    public void setState(int state) {
-        this.status = state;
     }
 
     @Override

@@ -7,8 +7,10 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
   jackson:
     time-zone: GMT+8
+
 
 server:
   port: 8080

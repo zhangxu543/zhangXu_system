@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
-    private static final Logger logger = LoggerFactory.getLogger(MajorController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubjectController.class);
 
     @Autowired
     private SubjectService service;

@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/schoolRoll")
 public class SchoolRollController {
-    private static final Logger logger = LoggerFactory.getLogger(MajorController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchoolRollController.class);
 
     @Autowired
     private SchoolRollService service;

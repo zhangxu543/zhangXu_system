@@ -31,6 +31,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Teacher login(String teaId, String password) {
+        return dao.login(teaId,password);
+    }
+
+    @Override
     public void insert(Teacher teacher) {
         dao.insert(teacher);
     }
@@ -38,5 +43,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void updateByID(Teacher teacher) {
         dao.updateByID(teacher);
+    }
+
+    @Override
+    public void delete(String teaId) {
+        dao.delete(teaId);
     }
 }

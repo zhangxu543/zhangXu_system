@@ -8,7 +8,7 @@
         <result column="levels" property="levels"></result>
         <result column="description" property="description"></result>
         <result column="times" property="times"></result>
-        <result column="state" property="status"></result>
+        <result column="status" property="status"></result>
         <!--一对一映射-->
         <association property="student" column="stu_id" select="com.csi.dao.StudentDao.findById"></association>
 
@@ -18,7 +18,7 @@
     insert into aware_punish (levels, stu_id, times, description, status ,classroom)
     values (#{levels,jdbcType=VARCHAR}, #{student.stuId,jdbcType=VARCHAR},
       #{times,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-      #{status,jdbcType=INTEGER},#{classroom,jdbcType=VARCHAR}
+      #{status,jdbcType=VARCHAR},#{classroom,jdbcType=VARCHAR}
       )
     </insert>
 
@@ -29,7 +29,7 @@
         stu_id = #{student.stuId,jdbcType=VARCHAR},
         times = #{times,jdbcType=VARCHAR},
         description = #{description,jdbcType=VARCHAR},
-        status = #{status,jdbcType=INTEGER},
+        status = #{status,jdbcType=VARCHAR},
         classroom = #{classroom,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -38,18 +38,24 @@
         select * from aware_punish where id=#{id}
     </select>
 
-    <select id="findByLike" parameterType="map" resultMap="awarePunishResult">
+    <select id="findByLike" parameterType="awarePunish" resultMap="awarePunishResult">
         select * from aware_punish
         <where>
             1=1
-            <if test="stuId != null">
-                and stu_id=#{stuId}
+            <if test="student != null">
+                and stu_id like concat('%',#{student.stuId},'%')
+            </if>
+            <if test="status != null">
+                and status like concat('%',#{status},'%')
+            </if>
+            <if test="times != null">
+                and times = #{times}
             </if>
             <if test="levels != null">
-                and levels=#{levels}
+                and levels like concat('%',#{levels},'%')
             </if>
             <if test="classroom != null">
-                and classroom=#{classroom}
+                and classroom like concat('%',#{classroom},'%')
             </if>
         </where>
     </select>

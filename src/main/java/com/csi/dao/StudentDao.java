@@ -1,6 +1,7 @@
 package com.csi.dao;
 
 import com.csi.domain.Student;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
 @Repository
 public interface StudentDao {
     Student findById(String stuId);
+    Student login(@Param("stuId") String stuId,@Param("password") String password);
     void insert(Student student);
     void updateByID(Student student);
     List<Student> findByLike(Map<String,Object> map);

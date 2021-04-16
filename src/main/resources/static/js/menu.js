@@ -19,7 +19,13 @@ var nemu = {
 				"title": "学生列表",
 				"linkUrl": "/students",
 				"children": []
-			}]
+			},{
+				"path": "/2-2",
+				"title": "奖罚列表",
+				"linkUrl": "/awarePunishes",
+				"children": []
+			}
+			]
 		},
 		{
 			"path": "3",
@@ -28,7 +34,7 @@ var nemu = {
 			"children": [{
 				"path": "/3-1",
 				"title": "教师列表",
-				"linkUrl": "/students",
+				"linkUrl": "/teachers",
 				"children": []
 			}]
 		},
@@ -57,9 +63,14 @@ var nemu = {
 				"linkUrl": "/subjects",
 				"children": []
 			},{
-				"path": "/4-4",
+				"path": "/4-5",
 				"title": "政治面貌列表",
 				"linkUrl": "/politics",
+				"children": []
+			},{
+				"path": "/4-6",
+				"title": "教师级别列表",
+				"linkUrl": "/teaRanks",
 				"children": []
 			}
 			]

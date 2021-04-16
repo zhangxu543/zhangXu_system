@@ -31,8 +31,8 @@ public class AwarePunishServiceImpl implements AwarePunishService {
     }
 
     @Override
-    public List<AwarePunish> findByLike(Map<String, Object> map) {
-        return dao.findByLike(map);
+    public List<AwarePunish> findByLike(AwarePunish awarePunish) {
+        return dao.findByLike(awarePunish);
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/politic")
 public class PoliticController {
-    private static final Logger logger = LoggerFactory.getLogger(MajorController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PoliticController.class);
 
     @Autowired
     private PoliticService service;

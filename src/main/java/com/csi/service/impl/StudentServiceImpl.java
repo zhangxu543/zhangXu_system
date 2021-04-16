@@ -27,6 +27,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student login(String stuId, String password) {
+        return dao.login(stuId,password);
+    }
+
+    @Override
     public void insert(Student student) {
         dao.insert(student);
     }

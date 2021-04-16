@@ -20,17 +20,31 @@
 
     <select id="findByLike" parameterType="map" resultMap="teacherResult">
         select * from teacher
-        where 1=1
-        <if test="teaId != null">
-            and tea_id=#{teaId}
-        </if>
-        <if test="teaPassword != null">
-            and tea_password=#{teaPassword}
-        </if>
+        <where>
+            1=1
+            <if test="teaId != null">
+                and tea_id like concat('%',#{teaId},'%')
+            </if>
+            <if test="teaName != null">
+                and tea_name like concat('%',#{teaName},'%')
+            </if>
+            <if test="tea_dept_id != null">
+                and tea_dept_id=#{tea_dept_id}
+            </if>
+            <if test="tea_rank_id != null">
+                and tea_rank_id=#{tea_rank_id}
+            </if>
+        </where>
+
+
     </select>
 
     <select id="findById" parameterType="string" resultMap="teacherResult">
         select * from teacher where tea_id=#{teaId}
+    </select>
+
+    <select id="login" parameterType="string" resultMap="teacherResult">
+        select * from teacher where tea_id=#{teaId} and tea_password=#{password}
     </select>
 
     <insert id="insert" parameterType="com.csi.domain.Teacher">
@@ -46,7 +60,7 @@
       #{teaPhone,jdbcType=VARCHAR},
       #{teaAddress,jdbcType=VARCHAR},
       #{dept.id,jdbcType=INTEGER},
-      #{teaState,jdbcType=INTEGER},
+      #{teaState,jdbcType=VARCHAR},
       #{rank.id,jdbcType=INTEGER})
     </insert>
 
@@ -58,7 +72,7 @@
         tea_phone = #{teaPhone,jdbcType=VARCHAR},
         tea_address = #{teaAddress,jdbcType=VARCHAR},
         tea_dept_id = #{dept.id,jdbcType=INTEGER},
-        tea_state = #{teaState,jdbcType=INTEGER},
+        tea_state = #{teaState,jdbcType=VARCHAR},
         tea_rank_id = #{rank.id,jdbcType=INTEGER}
         where tea_id = #{teaId,jdbcType=VARCHAR}
     </update>

@@ -1,6 +1,8 @@
 package com.csi.service;
 
 import com.csi.domain.Teacher;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,8 @@ import java.util.Map;
 public interface TeacherService {
     List<Teacher> findByLike(Map<String,Object> map);
     Teacher findById(String teaId);
+    Teacher login(String teaId, String password);
     void insert(Teacher teacher);
     void updateByID(Teacher student);
+    void delete(String teaId);
 }
