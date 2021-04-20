@@ -6,7 +6,7 @@ var nemu = {
 			"children": [{
 				"path": "/1-1",
 				"title": "用户列表",
-				"linkUrl": "userList.html",
+				"linkUrl": "",
 				"children": []
 			}]
 		},

@@ -6,18 +6,18 @@ var nemu = {
 			"children": [{
 				"path": "/1-1",
 				"title": "用户列表",
-				"linkUrl": "userList.html",
+				"linkUrl": "",
 				"children": []
 			}]
 		},
 		{
 			"path": "2",
-			"title": "学生管理",
+			"title": "学生管理 ",
 			"icon": "../asserts/img/icons/yonghuguanli.png",
 			"children": [{
 				"path": "/2-1",
 				"title": "学生列表",
-				"linkUrl": "",
+				"linkUrl": "/teacherStudents",
 				"children": []
 			},{
 				"path": "/2-2",
