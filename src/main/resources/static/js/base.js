@@ -37,6 +37,20 @@ var base = {
 			"id": 2,
 			"value": "休学"
 		}
+    ],
+    "TeacherLevels": [
+        {
+            "id": 0,
+            "value": "上课睡觉"
+        },
+        {
+            "id": 1,
+            "value": "扰乱秩序"
+        },
+        {
+            "id": 2,
+            "value": "看小说"
+        }
     ]
 
 }

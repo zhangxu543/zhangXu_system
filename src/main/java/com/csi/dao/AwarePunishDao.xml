@@ -11,14 +11,15 @@
         <result column="status" property="status"></result>
         <!--一对一映射-->
         <association property="student" column="stu_id" select="com.csi.dao.StudentDao.findById"></association>
+        <association property="teacher" column="tea_id" select="com.csi.dao.TeacherDao.findById"></association>
 
     </resultMap>
 
     <insert id="insert" parameterType="awarePunish" >
-    insert into aware_punish (levels, stu_id, times, description, status ,classroom)
+    insert into aware_punish (levels, stu_id, times, description, status ,classroom,tea_id)
     values (#{levels,jdbcType=VARCHAR}, #{student.stuId,jdbcType=VARCHAR},
       #{times,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-      #{status,jdbcType=VARCHAR},#{classroom,jdbcType=VARCHAR}
+      #{status,jdbcType=VARCHAR},#{classroom,jdbcType=VARCHAR},#{teacher.teaId,jdbcType=VARCHAR}
       )
     </insert>
 

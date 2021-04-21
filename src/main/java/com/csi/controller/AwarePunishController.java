@@ -3,6 +3,7 @@ package com.csi.controller;
 import com.csi.domain.AwarePunish;
 import com.csi.domain.Subject;
 import com.csi.domain.TeaDept;
+import com.csi.domain.Teacher;
 import com.csi.service.AwarePunishService;
 import com.csi.service.StudentService;
 import com.csi.service.SubjectService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,12 +35,14 @@ public class AwarePunishController {
     private StudentService studentService;
 
     @RequestMapping("/insert")
-    public Result insert(@RequestBody AwarePunish awarePunish){
-        logger.info("新增奖罚信息========"+awarePunish);
+    public Result insert(HttpSession session, @RequestBody AwarePunish awarePunish){
+        Teacher user = (Teacher) session.getAttribute("user");
+        awarePunish.setTeacher(user);
         Result result = new Result() ;
         awarePunish.setClassroom(studentService.findById(awarePunish.getStudent().getStuId()).getStuClass());
         if("奖励".equals(awarePunish.getStatus()))
             awarePunish.setLevels("");
+        logger.info("新增奖罚信息========"+awarePunish);
         service.insert(awarePunish);
         result.setMessage("添加成功！");
         return result;

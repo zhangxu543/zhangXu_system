@@ -17,8 +17,8 @@
 <body class="hold-transition">
 <div id="app">
     <div class="content-header common-search-border1">
-       <!-- <el-button class="butAdd" @click="handleCreate"><i class="el-icon-plus" aria-hidden="true"></i> 新增学生信息
-        </el-button>-->
+        <!-- <el-button class="butAdd" @click="handleCreate"><i class="el-icon-plus" aria-hidden="true"></i> 新增学生信息
+         </el-button>-->
     </div>
     <div class="app-container">
         <div class="box common-search-border2">
@@ -59,7 +59,7 @@
         <div class="box common-table-border" style="margin:8px 0 0;">
             <div class="box common-table-border" style="margin:8px 0 0;">
 
-                <template >
+                <template>
                     <el-table
                             :data="students.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                             style="width: 100%">
@@ -93,7 +93,7 @@
 
                         <el-table-column width="300">
                             <template slot-scope="scope">
-                                <el-button type="primary" round @click="">添加成绩</el-button>
+                                <el-button type="primary" round @click="handleCreate(scope.row)">添加成绩</el-button>
                                 <el-button type="primary" round @click="handleCreate0(scope.row)">奖罚</el-button>
                             </template>
                         </el-table-column>
@@ -116,60 +116,46 @@
 
             </div>
             <!-- 新增方向弹层 -->
-            <el-dialog title="新增学生" align="center" :visible.sync="dialogFormVisible" width="40%" top="8vh">
-                <el-form label-width="120px" :model="student" :rules="rules" ref="student">
-
-                    <el-form-item label="学号：" prop="stuId">
-                        <el-input v-model="student.stuId" autocomplete="off"></el-input>
+            <el-dialog title="新增学生成绩" align="center" :visible.sync="dialogFormVisible" width="40%" top="8vh">
+                <el-form label-width="120px" :model="grade" :rules="rules" ref="grade">
+                    <el-form-item  label="学号：" prop="stuId">
+                        <el-input readonly v-model="grade.student.stuId" autocomplete="off"></el-input>
                     </el-form-item>
 
                     <el-form-item label="姓名：" prop="stuName">
-                        <el-input v-model="student.stuName" autocomplete="off"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="性别：" prop="stuSex">
-                        <el-select v-model="student.stuSex" placeholder="请选择">
-                            <el-option
-                                    v-for="item in baseData.sex"
-                                    :key="item.value"
-                                    :label="item.value"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
+                        <el-input readonly v-model="grade.student.stuName" autocomplete="off"></el-input>
                     </el-form-item>
 
                     <el-form-item label="专业：" prop="major.id">
-                        <el-select v-model="major.id" placeholder="请选择院系" @change="findMajor()">
-                            <el-option
-                                    v-for="item in stuDepts"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
-                            </el-option>
-                        </el-select>
-                        <el-select v-model="student.major.id" placeholder="请选择专业">
-                            <el-option
-                                    v-for="item in majors"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
-                            </el-option>
-                        </el-select>
+                        <el-input readonly v-model="grade.student.major.name" autocomplete="off"></el-input>
                     </el-form-item>
 
                     <el-form-item label="班级：" prop="stuClass">
-                        <el-input v-model="student.stuClass" autocomplete="off"></el-input>
+                        <el-input readonly v-model="grade.student.stuClass" autocomplete="off"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="宿舍：" prop="stuDorm">
-                        <el-input v-model="student.stuDorm" autocomplete="off"></el-input>
+                    <el-form-item label="科目：" prop="subject">
+                        <el-select v-model="grade.subject.id" placeholder="请选择">
+                            <el-option
+                                    v-for="item in subjects"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="学期：" prop="term">
+                        <el-input v-model="grade.term" placeholder="请输入学期" autocomplete="off"></el-input>
                     </el-form-item>
 
+                    <el-form-item label="成绩：" prop="grade">
+                        <el-input type="number"  placeholder="请输入成绩" v-model="grade.grade" autocomplete="off"></el-input>
+                    </el-form-item>
 
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="handleCreateCancel">取 消</el-button>
-                    <el-button type="primary" @click="insert()">确 定</el-button>
+                    <el-button type="primary" @click="insertGrade()">确 定</el-button>
                 </div>
             </el-dialog>
 
@@ -194,10 +180,10 @@
                         </el-select>
                     </el-form-item>
 
-                    <el-form-item label="处罚等级：" prop="levels">
+                    <el-form-item label="类型：" prop="levels">
                         <el-select v-model="awarePunish.levels" placeholder="奖励不用选择">
                             <el-option
-                                    v-for="item in baseData.AwarePunishLevels"
+                                    v-for="item in baseData.TeacherLevels"
                                     :key="item.value"
                                     :label="item.value"
                                     :value="item.value">
@@ -242,171 +228,300 @@
         el: '#app',
         data() {
             return {
-                result:{
-                    code:'',
-                    message:'',
+                result: {
+                    code: '',
+                    message: '',
                 },
-                students:[],
+                students: [],
+                subjects: [],
                 student: {
-                    stuId:'',
-                    stuName:'',
-                    stuSex:'',
-                    stuPassword:'',
-                    stuNative:'',
-                    stuBirthday:'',
-                    major:{
-                        id:'',
-                        name:'',
-                        dept_id:''
+                    stuId: '',
+                    stuName: '',
+                    stuSex: '',
+                    stuPassword: '',
+                    stuNative: '',
+                    stuBirthday: '',
+                    major: {
+                        id: '',
+                        name: '',
+                        dept_id: ''
                     },
-                    stuClass:'',
-                    stuDorm:'',
-                    politic:{
-                        id:'',
-                        name:''
+                    stuClass: '',
+                    stuDorm: '',
+                    politic: {
+                        id: '',
+                        name: ''
                     },
-                    nation:{
-                        id:'',
-                        name:''
+                    nation: {
+                        id: '',
+                        name: ''
                     },
-                    stuIdcard:'',
-                    stuAddress:'',
-                    schoolRoll:{
-                        id:'',
-                        name:''
+                    stuIdcard: '',
+                    stuAddress: '',
+                    schoolRoll: {
+                        id: '',
+                        name: ''
                     }
                 },
                 student0: {
-                    stuId:'',
-                    stuName:'',
-                    stuSex:'',
-                    stuPassword:'',
-                    stuNative:'',
-                    stuBirthday:'',
-                    major:{
-                        id:'',
-                        name:'',
-                        dept_id:''
+                    stuId: '',
+                    stuName: '',
+                    stuSex: '',
+                    stuPassword: '',
+                    stuNative: '',
+                    stuBirthday: '',
+                    major: {
+                        id: '',
+                        name: '',
+                        dept_id: ''
                     },
-                    stuClass:'',
-                    stuDorm:'',
-                    politic:{
-                        id:'',
-                        name:''
+                    stuClass: '',
+                    stuDorm: '',
+                    politic: {
+                        id: '',
+                        name: ''
                     },
-                    nation:{
-                        id:'',
-                        name:''
+                    nation: {
+                        id: '',
+                        name: ''
                     },
-                    stuIdcard:'',
-                    stuAddress:'',
-                    schoolRoll:{
-                        id:'',
-                        name:''
+                    stuIdcard: '',
+                    stuAddress: '',
+                    schoolRoll: {
+                        id: '',
+                        name: ''
                     }
                 },
                 studentnull: {
-                    stuId:'',
-                    stuName:'',
-                    stuSex:'',
-                    stuPassword:'',
-                    stuNative:'',
-                    stuBirthday:'',
-                    major:{
-                        id:'',
-                        name:'',
-                        dept_id:''
+                    stuId: '',
+                    stuName: '',
+                    stuSex: '',
+                    stuPassword: '',
+                    stuNative: '',
+                    stuBirthday: '',
+                    major: {
+                        id: '',
+                        name: '',
+                        dept_id: ''
                     },
-                    stuClass:'',
-                    stuDorm:'',
-                    politic:{
-                        id:'',
-                        name:''
+                    stuClass: '',
+                    stuDorm: '',
+                    politic: {
+                        id: '',
+                        name: ''
                     },
-                    nation:{
-                        id:'',
-                        name:''
+                    nation: {
+                        id: '',
+                        name: ''
                     },
-                    stuIdcard:'',
-                    stuAddress:'',
-                    schoolRoll:{
-                        id:'',
-                        name:''
+                    stuIdcard: '',
+                    stuAddress: '',
+                    schoolRoll: {
+                        id: '',
+                        name: ''
                     }
                 },
-                awarePunish:{
-                    id:'',
+                awarePunish: {
+                    id: '',
                     student: {
-                        stuId:'',
-                        stuName:'',
-                        stuSex:'',
-                        stuPassword:'',
-                        stuNative:'',
-                        stuBirthday:'',
-                        major:{
-                            id:'',
-                            name:'',
-                            dept_id:''
+                        stuId: '',
+                        stuName: '',
+                        stuSex: '',
+                        stuPassword: '',
+                        stuNative: '',
+                        stuBirthday: '',
+                        major: {
+                            id: '',
+                            name: '',
+                            dept_id: ''
                         },
-                        stuClass:'',
-                        stuDorm:'',
-                        politic:{
-                            id:'',
-                            name:''
+                        stuClass: '',
+                        stuDorm: '',
+                        politic: {
+                            id: '',
+                            name: ''
                         },
-                        nation:{
-                            id:'',
-                            name:''
+                        nation: {
+                            id: '',
+                            name: ''
                         },
-                        stuIdcard:'',
-                        stuAddress:'',
-                        schoolRoll:{
-                            id:'',
-                            name:''
+                        stuIdcard: '',
+                        stuAddress: '',
+                        schoolRoll: {
+                            id: '',
+                            name: ''
                         }
                     },
-                    levels:'',
-                    description:'',
-                    times:'',
-                    status:'',
-                    classroom:''
+                    levels: '',
+                    description: '',
+                    times: '',
+                    status: '',
+                    classroom: ''
                 },
-                awarePunishNull:{
-                    id:'',
+                awarePunishNull: {
+                    id: '',
                     student: {
-                        stuId:'',
-                        stuName:'',
-                        stuSex:'',
-                        stuPassword:'',
-                        stuNative:'',
-                        stuBirthday:'',
-                        major:{
-                            id:'',
-                            name:'',
-                            dept_id:''
+                        stuId: '',
+                        stuName: '',
+                        stuSex: '',
+                        stuPassword: '',
+                        stuNative: '',
+                        stuBirthday: '',
+                        major: {
+                            id: '',
+                            name: '',
+                            dept_id: ''
                         },
-                        stuClass:'',
-                        stuDorm:'',
-                        politic:{
-                            id:'',
-                            name:''
+                        stuClass: '',
+                        stuDorm: '',
+                        politic: {
+                            id: '',
+                            name: ''
                         },
-                        nation:{
-                            id:'',
-                            name:''
+                        nation: {
+                            id: '',
+                            name: ''
                         },
-                        stuIdcard:'',
-                        stuAddress:'',
-                        schoolRoll:{
-                            id:'',
-                            name:''
+                        stuIdcard: '',
+                        stuAddress: '',
+                        schoolRoll: {
+                            id: '',
+                            name: ''
                         }
                     },
-                    levels:'',
-                    description:'',
-                    times:'',
-                    status:'',
-                    classroom:''
+                    levels: '',
+                    description: '',
+                    times: '',
+                    status: '',
+                    classroom: ''
+                },
+                grade: {
+                    id: '',
+                    student: {
+                        stuId: '',
+                        stuName: '',
+                        stuSex: '',
+                        stuPassword: '',
+                        stuNative: '',
+                        stuBirthday: '',
+                        major: {
+                            id: '',
+                            name: '',
+                            dept_id: ''
+                        },
+                        stuClass: '',
+                        stuDorm: '',
+                        politic: {
+                            id: '',
+                            name: ''
+                        },
+                        nation: {
+                            id: '',
+                            name: ''
+                        },
+                        stuIdcard: '',
+                        stuAddress: '',
+                        schoolRoll: {
+                            id: '',
+                            name: ''
+                        }
+                    },
+                    subject: {
+                        id: '',
+                        name: '',
+                        credit: ''
+                    },
+                    grade: '',
+                    term: '',
+                    teacher: {
+                        teaId: '',
+                        teaPassword: '',
+                        teaName: '',
+                        teaSex: '',
+                        teaPhone: '',
+                        teaAddress: '',
+                        dept: {
+                            id: '',
+                            name: ''
+                        },
+                        rank: {
+                            id: '',
+                            name: ''
+                        },
+                        teaState: ''
+
+                    },
+                    major: {
+                        id: '',
+                        name: '',
+                        dept_id: '',
+                        dept_name: ''
+                    },
+                    classroom: ''
+                },
+                gradeNull: {
+                    id: '',
+                    student: {
+                        stuId: '',
+                        stuName: '',
+                        stuSex: '',
+                        stuPassword: '',
+                        stuNative: '',
+                        stuBirthday: '',
+                        major: {
+                            id: '',
+                            name: '',
+                            dept_id: ''
+                        },
+                        stuClass: '',
+                        stuDorm: '',
+                        politic: {
+                            id: '',
+                            name: ''
+                        },
+                        nation: {
+                            id: '',
+                            name: ''
+                        },
+                        stuIdcard: '',
+                        stuAddress: '',
+                        schoolRoll: {
+                            id: '',
+                            name: ''
+                        }
+                    },
+                    subject: {
+                        id: '',
+                        name: '',
+                        credit: ''
+                    },
+                    grade: '',
+                    term: '',
+                    teacher: {
+                        teaId: '',
+                        teaPassword: '',
+                        teaName: '',
+                        teaSex: '',
+                        teaPhone: '',
+                        teaAddress: '',
+                        dept: {
+                            id: '',
+                            name: ''
+                        },
+                        rank: {
+                            id: '',
+                            name: ''
+                        },
+                        teaState: ''
+
+                    },
+                    major: {
+                        id: '',
+                        name: '',
+                        dept_id: '',
+                        dept_name: ''
+                    },
+                    classroom: ''
                 },
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
@@ -455,27 +570,43 @@
                 },
                 value1: '',
                 value2: '',
-                file:[],
-                stuDepts:[],
-                major:{},
-                majors:[],
-                rules: {
-
-                }
+                file: [],
+                stuDepts: [],
+                major: {},
+                majors: [],
+                rules: {}
 
             }
         },
 
         methods: {
-            selectOne:function (row){
-                window.location.href="student/findById/"+row.stuId
+            findSubjects: function () {
+                axios.get("/subject/findAll").then(response => {
+                    this.subjects = response.data;
+                }).catch(error => {
+                    console.dir(error);
+                });
             },
-            insertAwarePunish:function (){
-                axios.post("/awarePunish/insert",this.awarePunish).then(response =>{
+            selectOne: function (row) {
+                window.location.href = "student/findById/" + row.stuId
+            },
+            insertGrade: function () {
+                axios.post("/grade/insert", this.grade).then(response => {
                     this.$message.success(response.data.message);
-                    this.awarePunish=this.awarePunishNull;
+                    this.grade = this.gradeNull;
 
-                }).catch(error =>{
+                }).catch(error => {
+                    console.dir(error)
+                })
+                this.dialogFormVisible = false;
+
+            },
+            insertAwarePunish: function () {
+                axios.post("/awarePunish/insert", this.awarePunish).then(response => {
+                    this.$message.success(response.data.message);
+                    this.awarePunish = this.awarePunishNull;
+
+                }).catch(error => {
                     console.dir(error)
                 })
                 this.dialogFormVisible0 = false;
@@ -484,21 +615,20 @@
             //查询全部方法
             findAll: function () {
                 axios.get("/student/list").then(response => {
-                    this.currentPage=1;
+                    this.currentPage = 1;
                     this.students = response.data;
                 }).catch(error => {
                     console.dir(error);
                 });
             },
-            findByLike: function(){
-                axios.post("/student/findByLike",this.student0).then(response =>{
-                    this.currentPage=1;
+            findByLike: function () {
+                axios.post("/student/findByLike", this.student0).then(response => {
+                    this.currentPage = 1;
                     this.students = response.data;
-                }).catch(error =>{
+                }).catch(error => {
                     console.dir(error)
                 })
             },
-
 
 
             /*------------------------*/
@@ -525,26 +655,30 @@
                 this.currentPage = val;
             },
             // 新增
-            handleCreate() {
-                this.findDept();
+            handleCreate(row) {
+                this.findSubjects();
+                this.grade.student.stuId = row.stuId;
+                this.grade.student.stuName = row.stuName;
+                this.grade.student.stuClass = row.stuClass;
+                this.grade.student.major.name = row.major.name;
                 this.dialogFormVisible = true;
             },
             // 新增
             handleCreate0(row) {
-                this.awarePunish.student.stuId=row.stuId;
-                this.awarePunish.student.stuName=row.stuName;
+                this.awarePunish.student.stuId = row.stuId;
+                this.awarePunish.student.stuName = row.stuName;
                 this.dialogFormVisible0 = true;
             },
 
             //新增取消
             handleCreateCancel() {
-                this.student=this.studentnull;
+                this.grade = this.gradeNull;
                 this.dialogFormVisible = false;
             },
             //新增取消
             handleCreateCancel0() {
                 this.dialogFormVisible0 = false;
-                this.awarePunish=this.awarePunishNull;
+                this.awarePunish = this.awarePunishNull;
             },
 
             // 删除

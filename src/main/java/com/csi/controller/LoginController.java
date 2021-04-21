@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author 张旭
  * @version 1.0
@@ -32,7 +34,7 @@ public class LoginController {
 
     @RequestMapping("/login/{id}/{password}/{status}")
     @ResponseBody
-    public Result login(@PathVariable(value = "id")String id,@PathVariable(value = "password") String password,@PathVariable(value = "status") String status){
+    public Result login(HttpSession session, @PathVariable(value = "id")String id, @PathVariable(value = "password") String password, @PathVariable(value = "status") String status){
         logger.info("账号==="+id+"==密码==="+password+"===身份===="+status);
         Result result = new Result() ;
         if("3".equals(status)){
@@ -40,6 +42,7 @@ public class LoginController {
             logger.info("登录信息====="+teacher);
             if("是".equals(teacher.getTeaState())){
                 result.setCode(3);
+                session.setAttribute("user",teacher);
             }else {
                 result.setCode(4);
                 result.setMessage("账号密码错误！");
@@ -49,6 +52,7 @@ public class LoginController {
             logger.info("登录信息====="+teacher1);
             if(teacher1!=null){
                 result.setCode(2);
+                session.setAttribute("user",teacher1);
             }else {
                 result.setCode(4);
                 result.setMessage("账号密码错误！");
@@ -57,6 +61,7 @@ public class LoginController {
             Student student = studentService.login(id, password);
             if(student!=null){
                 result.setCode(1);
+                session.setAttribute("user",student);
             }else {
                 result.setCode(4);
                 result.setMessage("账号密码错误！");

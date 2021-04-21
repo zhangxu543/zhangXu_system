@@ -16,18 +16,17 @@ public class AwarePunish {
     private String times;
     private String status;
     private String classroom;
+    private Teacher teacher;
 
     public AwarePunish() {
     }
 
-    public AwarePunish(int id, Student student, String levels, String description, String time, String state) {
-        this.id = id;
-        this.student = student;
-        this.levels = levels;
-        this.description = description;
-        this.times = time;
-        this.status = state;
-        this.classroom=student.getStuClass();
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public int getId() {
