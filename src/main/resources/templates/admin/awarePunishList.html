@@ -120,6 +120,12 @@
                         </el-table-column>
 
                         <el-table-column
+                                width="100"
+                                prop="teacher.teaName"
+                                label="处理教师">
+                        </el-table-column>
+
+                        <el-table-column
                                 width="300"
                                 prop="description"
                                 label="描述">
@@ -208,7 +214,25 @@
                     description:'',
                     times:'',
                     status:'',
-                    classroom:''
+                    classroom:'',
+                    teacher:{
+                        teaId:'',
+                        teaPassword:'',
+                        teaName:'',
+                        teaSex:'',
+                        teaPhone:'',
+                        teaAddress:'',
+                        dept: {
+                            id:'',
+                            name:''
+                        },
+                        rank: {
+                            id:'',
+                            name:''
+                        },
+                        teaState:''
+
+                    }
                 },
                 awarePunishNull:{
                     id:'',
@@ -245,7 +269,25 @@
                     description:'',
                     times:'',
                     status:'',
-                    classroom:''
+                    classroom:'',
+                    teacher:{
+                        teaId:'',
+                        teaPassword:'',
+                        teaName:'',
+                        teaSex:'',
+                        teaPhone:'',
+                        teaAddress:'',
+                        dept: {
+                            id:'',
+                            name:''
+                        },
+                        rank: {
+                            id:'',
+                            name:''
+                        },
+                        teaState:''
+
+                    }
                 },
                 baseData: base,
                 currentPage: 1, // 当前页码

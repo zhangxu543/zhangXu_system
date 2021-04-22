@@ -83,4 +83,9 @@ public class TestController {
         return "admin/teaRankList";
     }
 
+    @RequestMapping("/grades")
+    public String grades() {
+        return "teacher/gradeList";
+    }
+
 }

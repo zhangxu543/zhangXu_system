@@ -22,7 +22,12 @@ var nemu = {
 			},{
 				"path": "/2-2",
 				"title": "奖罚列表",
-				"linkUrl": "",
+				"linkUrl": "/awarePunishes",
+				"children": []
+			},{
+				"path": "/2-3",
+				"title": "成绩列表",
+				"linkUrl": "/grades",
 				"children": []
 			}
 			]
