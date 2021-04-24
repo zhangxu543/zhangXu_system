@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @date 2021/3/28 17:23
  */
-@Repository
+
 public interface VariationService {
     void insert(Variation change);
     List<Variation> selectByStu(@Param("stuId") String stuId);

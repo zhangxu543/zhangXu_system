@@ -1,9 +1,6 @@
 package com.csi.controller;
 
-import com.csi.domain.AwarePunish;
-import com.csi.domain.Grade;
-import com.csi.domain.TeaDept;
-import com.csi.domain.Teacher;
+import com.csi.domain.*;
 import com.csi.service.GradeService;
 import com.csi.service.StudentService;
 import com.csi.util.Result;
@@ -70,6 +67,17 @@ public class GradeController {
     @RequestMapping("/findAll")
     public List<Grade> findAll() {
         List<Grade> list = service.findByLike(null);
+        logger.info("查询出来成绩个数======" + list.size());
+        return list;
+    }
+
+    @RequestMapping("/findByStuId")
+    public List<Grade> findByStuId(HttpSession session) {
+        Student student =  (Student)session.getAttribute("user");
+        Map<String, Object> map = new HashMap<>();
+        map.put("stuId", student.getStuId());
+        logger.info("筛选条件======" + student.getStuId());
+        List<Grade> list = service.findByLike(map);
         logger.info("查询出来成绩个数======" + list.size());
         return list;
     }

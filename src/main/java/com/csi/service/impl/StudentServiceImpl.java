@@ -42,6 +42,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void updateSchoolRoll(Student student) {
+        dao.updateSchoolRoll(student);
+    }
+
+    @Override
     public List<Student> findByLike(Map<String, Object> map) {
         return dao.findByLike(map);
     }

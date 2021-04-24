@@ -1,9 +1,6 @@
 package com.csi.controller;
 
-import com.csi.domain.AwarePunish;
-import com.csi.domain.Subject;
-import com.csi.domain.TeaDept;
-import com.csi.domain.Teacher;
+import com.csi.domain.*;
 import com.csi.service.AwarePunishService;
 import com.csi.service.StudentService;
 import com.csi.service.SubjectService;
@@ -16,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张旭
@@ -70,4 +69,14 @@ public class AwarePunishController {
         return list;
     }
 
+    @RequestMapping("/findByStuId")
+    public List<AwarePunish> findByStuId(HttpSession session) {
+        Student student =  (Student)session.getAttribute("user");
+        logger.info("筛选条件======" + student.getStuId());
+        AwarePunish awarePunish=new AwarePunish();
+        awarePunish.setStudent(student);
+        List<AwarePunish> list = service.findByLike(awarePunish);
+        logger.info("查询出来成绩个数======" + list.size());
+        return list;
+    }
 }

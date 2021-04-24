@@ -17,22 +17,17 @@ var nemu = {
             "children": [{
                 "path": "/2-1",
                 "title": "个人成绩",
-                "linkUrl": "",
+                "linkUrl": "/stuGrades",
                 "children": []
             }, {
                 "path": "/2-2",
                 "title": "个人奖罚",
-                "linkUrl": "/",
+                "linkUrl": "/stuAwarePunishes",
                 "children": []
             }, {
                 "path": "/2-3",
                 "title": "个人信息",
-                "linkUrl": "/",
-                "children": []
-            }, {
-                "path": "/2-4",
-                "title": "课程表",
-                "linkUrl": "/",
+                "linkUrl": "/student/findById1",
                 "children": []
             }
             ]

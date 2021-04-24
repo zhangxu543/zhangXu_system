@@ -16,10 +16,9 @@
 
 <body class="hold-transition">
 <div id="app" style="margin: 0 auto">
-
     <div class="app-container">
+        <h2 class="titleInfo"><span>信息详情</span></h2>
         <div class="box common-table-border" style="margin-top: 15px;min-height: calc(100vh - 55px);">
-            <h2 class="titleInfo"><span>信息详情</span></h2>
             <input hidden="" th:value="${studentInfo.stuId}" ref="getValue">
             <div class="content">
                 <ul class="contentList clear">
@@ -27,7 +26,9 @@
                     <li style="width: 48%">【姓名】：<span th:text="${studentInfo.stuName}"></span></li>
                     <li style="width: 48%">【性别】：<span th:text="${studentInfo.stuSex}"></span></li>
                     <li style="width: 48%">【密码】：<span th:text="${studentInfo.stuPassword}"></span></li>
+                    <li style="width: 48%">【籍贯】：<span th:text="${studentInfo.stuNative}"></span></li>
                     <li style="width: 48%">【生日】：<span th:text="${studentInfo.stuBirthday}"></span></li>
+
                     <li style="width: 48%">【专业】：<span th:text="${studentInfo.major.name}"></span></li>
                     <li style="width: 48%">【班级】：<span th:text="${studentInfo.stuClass}"></span></li>
                     <li style="width: 48%">【宿舍】：<span th:text="${studentInfo.stuDorm}"></span></li>
@@ -52,25 +53,63 @@
         <el-form label-width="120px" :model="student" :rules="rules" ref="student">
 
             <el-form-item label="学号：" prop="stuId">
-                <el-input v-model="student.stuId" autocomplete="off"></el-input>
+                <el-input readonly v-model="student.stuId" autocomplete="off"></el-input>
             </el-form-item>
 
             <el-form-item label="姓名：" prop="stuName">
-                <el-input v-model="student.stuName" autocomplete="off"></el-input>
+                <el-input readonly v-model="student.stuName" autocomplete="off"></el-input>
             </el-form-item>
 
-            <el-form-item label="专业：" prop="major.id">
-                <el-select v-model="major.id" placeholder="请选择院系" @change="findMajor()">
+            <el-form-item label="身份证号：" prop="stuIdcard">
+                <el-input v-model="student.stuIDcard" autocomplete="off"></el-input>
+            </el-form-item>
+
+            <el-form-item label="出生日期" >
+                <el-date-picker
+                        style="width: 120px"
+                        value-format="yyyy-MM-dd"
+                        v-model="student.stuBirthday"
+                        type="date"
+                        placeholder="    选择日期"
+                        :picker-options="pickerOptions"
+                >
+                </el-date-picker>
+            </el-form-item>
+
+            <el-form-item label="家庭住址：" prop="stuClass">
+                <el-select v-model="city1.id" placeholder="省"  @change="getshiList">
                     <el-option
-                            v-for="item in stuDepts"
+                            v-for="item in productAreaList"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id">
                     </el-option>
                 </el-select>
-                <el-select v-model="student.major.id" placeholder="请选择专业">
+
+                <el-select v-model="city2.id" placeholder="市"   @change="getquList">
                     <el-option
-                            v-for="item in majors"
+                            v-for="item in productAreaList1"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="city3.id" placeholder="区" @change="getpropertyList">
+                    <el-option
+                            v-for="item in productAreaList2"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+                <el-input v-model="value" placeholder="具体地址" autocomplete="off"></el-input>
+            </el-form-item>
+
+            <el-form-item label="民族：" prop="stuClass">
+                <el-select v-model="student.nation.id" placeholder="请选择民族" >
+                    <el-option
+                            v-for="item in nations"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id">
@@ -78,34 +117,6 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="班级：" prop="stuClass">
-                <el-input v-model="student.stuClass" autocomplete="off"></el-input>
-            </el-form-item>
-
-            <el-form-item label="宿舍：" prop="stuDorm">
-                <el-input v-model="student.stuDorm" autocomplete="off"></el-input>
-            </el-form-item>
-
-            <el-form-item label="政治面貌：" prop="politic">
-                <el-select v-model="student.politic.id" placeholder="请选择">
-                    <el-option
-                            v-for="item in politics"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="学籍状态：" prop="schoolRoll">
-                <el-select v-model="student.schoolRoll.id" placeholder="请选择">
-                    <el-option
-                            v-for="item in schoolRollList"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
 
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -153,7 +164,7 @@
                     id: '',
                     name: ''
                 },
-                stuIdcard: '',
+                stuIDcard: '',
                 stuAddress: '',
                 schoolRoll: {
                     id: '',
@@ -183,7 +194,7 @@
                     id: '',
                     name: ''
                 },
-                stuIdcard: '',
+                stuIDcard: '',
                 stuAddress: '',
                 schoolRoll: {
                     id: '',
@@ -213,23 +224,34 @@
                     id: '',
                     name: ''
                 },
-                stuIdcard: '',
+                stuIDcard: '',
                 stuAddress: '',
                 schoolRoll: {
                     id: '',
                     name: ''
                 }
             },
-            schoolRollList:[],
-            dialogFormVisible: false,
-            stuDepts:[],
-            major:{
+            productAreaList:[],
+            city1:{
                 id:'',
                 name:'',
-                dept_id:'',
-                dept_name:''
+                cid:''
             },
-            majors:[],
+            productAreaList1:[],
+            city2:{
+                id:'',
+                name:'',
+                cid:''
+            },
+            productAreaList2:[],
+            city3:{
+                id:'',
+                name:'',
+                cid:''
+            },
+            value:'',
+            dialogFormVisible: false,
+            nations:[],
             politics:[],
             rules: {},
             pickerOptions: {
@@ -269,34 +291,53 @@
             back: function () {
                 window.history.back();
             },
-            findPolitics:function (){
-                axios.get("/politic/findAll").then(response => {
-                    this.politics = response.data;
+
+            getAreaList() {
+                axios.post("/city/findSheng").then(response=>{
+                    this.productAreaList=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                })
+            },
+            getshiList() {
+                axios.post("/city/findById/"+ this.city1.id ).then(response=>{
+                    this.city1=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                });
+                axios.post("/city/findByCid/"+ this.city1.id ).then(response=>{
+                    this.productAreaList1=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                })
+            },
+            getquList() {
+                axios.post("/city/findById/"+ this.city2.id ).then(response=>{
+                    this.city2=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                });
+                axios.post("/city/findByCid/"+ this.city2.id).then(response=>{
+                    this.productAreaList2=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                })
+            },
+            getpropertyList(){
+                axios.post("/city/findById/"+ this.city3.id ).then(response=>{
+                    this.city3=response.data;
+                }).catch(error=>{
+                    console.dir(error)
+                });
+            },
+            findNations:function (){
+                axios.get("/nation/findAll").then(response => {
+                    this.nations = response.data;
                 }).catch(error => {
                     console.dir(error);
                 });
             },
-            findDept:function (){
-                axios.post("/major/findByDept").then(response =>{
-                    this.stuDepts = response.data;
-                }).catch(error =>{
-                    console.dir(error)
-                })
-            },
-            findMajor:function (){
-                axios.post("/major/findMajor",this.major).then(response =>{
-                    this.majors = response.data;
-                }).catch(error =>{
-                    console.dir(error)
-                })
-            },
-            findSchoolRolls:function (){
-                axios.get("/schoolRoll/findAll").then(response => {
-                    this.schoolRollList = response.data;
-                }).catch(error => {
-                    console.dir(error);
-                });
-            },
+
             findById:function (){
                 axios.get("/student/findById0/" + this.$refs.getValue.value).then(response => {
                     this.student = response.data;
@@ -305,6 +346,8 @@
                 });
             },
             updateStudent:function () {
+                if(this.city3.name!='')
+                   this.student.stuAddress=this.city1.name+this.city2.name+this.city3.name+this.value;
                 axios.post("/student/updateStudent", this.student).then(response => {
                     this.$message.success(response.data.message);
                 }).catch(error => {
@@ -317,15 +360,13 @@
             // 修改
             handleCreate() {
                 this.findById();
-                this.findDept();
-                this.findPolitics();
-                this.findSchoolRolls();
+                this.getAreaList();
+                this.findNations();
                 this.dialogFormVisible = true;
             },
 
             //新增取消
             handleCreateCancel: function () {
-                this.findById();
                 this.dialogFormVisible = false;
             },
         },

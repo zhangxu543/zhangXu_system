@@ -20,29 +20,13 @@ public class Student {
     private String stuDorm;//宿舍
     private Politic politic;//政治面貌；
     private Nation nation;//民族
-    private String stuIdcard;//身份证号
+    private String stuIDcard;//身份证号
     private String stuAddress;//家庭住址
     private SchoolRoll schoolRoll;//学籍状态
 
     public Student() {
     }
 
-    public Student(String stuId, String stuName, String stuNex, String stuPassword, String stuNative, String stuBirthday, Major major, String stuClass, String stuDorm, Politic politic, Nation nation, String stuIDcard, String stuAddress, SchoolRoll schoolRoll) {
-        this.stuId = stuId;
-        this.stuName = stuName;
-        this.stuSex = stuNex;
-        this.stuPassword = stuPassword;
-        this.stuNative = stuNative;
-        this.stuBirthday = stuBirthday;
-        this.major = major;
-        this.stuClass = stuClass;
-        this.stuDorm = stuDorm;
-        this.politic = politic;
-        this.nation = nation;
-        this.stuIdcard = stuIDcard;
-        this.stuAddress = stuAddress;
-        this.schoolRoll = schoolRoll;
-    }
 
     public String getStuId() {
         return stuId;
@@ -68,13 +52,7 @@ public class Student {
         this.stuSex = stuSex;
     }
 
-    public String getStuIdcard() {
-        return stuIdcard;
-    }
 
-    public void setStuIdcard(String stuIdcard) {
-        this.stuIdcard = stuIdcard;
-    }
 
     public String getStuPassword() {
         return stuPassword;
@@ -141,11 +119,11 @@ public class Student {
     }
 
     public String getStuIDcard() {
-        return stuIdcard;
+        return stuIDcard;
     }
 
     public void setStuIDcard(String stuIDcard) {
-        this.stuIdcard = stuIDcard;
+        this.stuIDcard = stuIDcard;
     }
 
     public String getStuAddress() {
@@ -178,7 +156,7 @@ public class Student {
                 ", stuDorm='" + stuDorm + '\'' +
                 ", politic=" + politic +
                 ", nation=" + nation +
-                ", stuIDcard='" + stuIdcard + '\'' +
+                ", stuIDcard='" + stuIDcard + '\'' +
                 ", stuAddress='" + stuAddress + '\'' +
                 ", schoolRoll=" + schoolRoll +
                 '}';

@@ -18,5 +18,6 @@ public interface StudentDao {
     Student login(@Param("stuId") String stuId,@Param("password") String password);
     void insert(Student student);
     void updateByID(Student student);
+    void updateSchoolRoll(Student student);
     List<Student> findByLike(Map<String,Object> map);
 }

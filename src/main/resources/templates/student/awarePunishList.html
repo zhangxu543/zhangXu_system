@@ -16,31 +16,26 @@
 
 <body class="hold-transition">
 <div id="app">
-    <div class="app-container">
-        <h2 class="titleInfo"><span>成绩列表</span></h2>
 
+    <div class="app-container">
+        <h2 class="titleInfo"><span>奖罚详情</span></h2>
         <div class="box common-table-border" style="margin:8px 0 0;">
             <div class="box common-table-border" style="margin:8px 0 0;">
 
                 <template>
                     <el-table
-                            :data="grades.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                            :data="awarePunishes.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                             style="width: 100%">
 
                         <el-table-column
-                                width="100"
+                                width="80"
                                 prop="student.stuId"
                                 label="学号">
                         </el-table-column>
                         <el-table-column
-                                width="100"
+                                width="80"
                                 prop="student.stuName"
                                 label="姓名">
-                        </el-table-column>
-                        <el-table-column
-                                width="100"
-                                prop="student.stuSex"
-                                label="性别">
                         </el-table-column>
                         <el-table-column
                                 width="100"
@@ -49,33 +44,39 @@
                         </el-table-column>
 
                         <el-table-column
+                                width="140"
+                                prop="times"
+                                label="时间">
+                        </el-table-column>
+
+                        <el-table-column
+                                width="80"
+                                prop="status"
+                                label="类型">
+                        </el-table-column>
+
+                        <el-table-column
                                 width="100"
-                                prop="subject.name"
-                                label="科目">
+                                prop="levels"
+                                label="处罚等级">
                         </el-table-column>
 
                         <el-table-column
                                 width="100"
                                 prop="teacher.teaName"
-                                label="任课教师">
+                                label="处理教师">
                         </el-table-column>
 
                         <el-table-column
-                                width="100"
-                                prop="grade"
-                                label="成绩">
+                                width="300"
+                                prop="description"
+                                label="描述">
                         </el-table-column>
 
-                        <el-table-column
-                                width="100"
-                                prop="subject.credit"
-                                label="所占学分">
-                        </el-table-column>
-
-                        <el-table-column
-                                width="150"
-                                prop="major.name"
-                                label="专业">
+                        <el-table-column width="150">
+                            <!--<template slot-scope="scope">
+                                <el-button type="primary" round @click="delete0(scope.row)">删除</el-button>
+                            </template>-->
                         </el-table-column>
 
 
@@ -88,13 +89,14 @@
                                        :page-sizes="[1,5,10,20]"
                                        :page-size="pageSize"
                                        layout="total, sizes, prev, pager, next, jumper"
-                                       :total="grades.length">
+                                       :total="awarePunishes.length">
                         </el-pagination>
                     </div>
                 </template>
 
 
             </div>
+
             <!-- end -->
         </div>
 
@@ -118,8 +120,8 @@
                     code: '',
                     message: '',
                 },
-                grades: [],
-
+                awarePunishes:[],
+                baseData: base,
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 5,// 每页的数据条数
@@ -130,30 +132,50 @@
                     pageNum: 1,
                     pageSize: 10
                 },
-
                 loading: false,
-                items: [],
+                dialogFormVisible: false,
                 rules: {},
+                pickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                },
 
             }
         },
 
         methods: {
+
+            //查询全部方法
             findAll: function () {
-                axios.get("/grade/findByStuId").then(response => {
-                    this.currentPage = 1;
-                    this.grades = response.data;
+                axios.get("/awarePunish/findByStuId").then(response => {
+                    this.awarePunishes = response.data;
                 }).catch(error => {
                     console.dir(error);
                 });
             },
 
             /*------------------------*/
-
-            //清除
-            handleRest() {
-
-            },
 
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
@@ -166,16 +188,9 @@
                 this.currentPage = val;
             },
 
-            // 删除
-            handleDeleted(row) {
-                this.$confirm('此操作将永久删除方向 ' + ', 是否继续?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    var t = this;
-                }).catch(() => {
-                    this.$message.info('已取消操作!')
-                });
-            }
+
+
+
         },
 
         mounted: function () {

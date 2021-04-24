@@ -73,6 +73,11 @@ public class TestController {
         return "admin/awarePunishList";
     }
 
+    @RequestMapping("/stuAwarePunishes")
+    public String stuAwarePunishes() {
+        return "student/awarePunishList";
+    }
+
     @RequestMapping("/teachers")
     public String teachers() {
         return "admin/teacherList";
@@ -86,6 +91,11 @@ public class TestController {
     @RequestMapping("/grades")
     public String grades() {
         return "teacher/gradeList";
+    }
+
+    @RequestMapping("/stuGrades")
+    public String stuGrades() {
+        return "student/gradeList";
     }
 
 }

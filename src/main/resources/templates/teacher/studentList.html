@@ -17,14 +17,12 @@
 <body class="hold-transition">
 <div id="app">
     <div class="content-header common-search-border1">
-        <!-- <el-button class="butAdd" @click="handleCreate"><i class="el-icon-plus" aria-hidden="true"></i> 新增学生信息
-         </el-button>-->
+        <h2 class="titleInfo"><span>学生列表</span></h2>
     </div>
     <div class="app-container">
         <div class="box common-search-border2">
             <div class="filter-container">
                 <!-- 搜索栏 -->
-
                 <el-form :inline="true" :model="student0" ref="student0" class="formInfo" label-width="70px">
                     <el-form-item label="学号" label-width="40px" prop="stuId">
                         <el-input placeholder="请输入" v-model="student0.stuId" style="width: 200px;"

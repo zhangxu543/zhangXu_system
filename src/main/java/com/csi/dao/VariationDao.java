@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Repository
 public interface VariationDao {
-    @Insert("insert into Variation(stu_id,time,description) value(#{student.stuId},#{time},#{description})")
+    @Insert("insert into Variation(stu_id,times,description) value(#{student.stuId},#{time},#{description})")
     void insert(Variation change);
 
     List<Variation> selectByStu(@Param("stuId") String stuId);

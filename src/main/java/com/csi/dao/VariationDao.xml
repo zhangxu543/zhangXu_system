@@ -4,7 +4,7 @@
     <!--结果集映射-->
     <resultMap id="variationResult" type="variation">
         <id column="id" property="id"></id>
-        <result column="time" property="time"></result>
+        <result column="times" property="time"></result>
         <result column="desc" property="desc"></result>
         <!--一对一映射-->
         <association property="student" column="stu_id" select="com.csi.dao.StudentDao.findById"></association>

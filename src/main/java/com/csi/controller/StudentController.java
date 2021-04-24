@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +99,13 @@ public class StudentController {
         Student student = studentService.findById(id);
         logger.info("单个学生信息======"+student);
         return student;
+    }
+
+    @RequestMapping("/findById1")
+    public String findById1(HttpSession session,Model model) {
+        Student student =  (Student)session.getAttribute("user");
+        model.addAttribute("studentInfo", studentService.findById(student.getStuId()));
+        return "student/studentInfo";
     }
 
     @RequestMapping("/updateStudent")

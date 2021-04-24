@@ -17,6 +17,7 @@
 <body class="hold-transition">
 <div id="app">
     <div class="content-header common-search-border1">
+        <h2 class="titleInfo"><span>奖罚列表</span></h2>
 
     </div>
     <div class="app-container">
@@ -53,7 +54,7 @@
                                        :label="item.value"
                                        style="width: 100px"
                                        :value="item.id"
-                                       v-for="item in baseData.AwarePunishLevels">
+                                       v-for="item in baseData.total">
                             </el-option>
                         </el-select>
                     </el-form-item>

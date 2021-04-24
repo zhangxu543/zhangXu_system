@@ -86,7 +86,7 @@
             <if test="nation != null">
                 nation_id,
             </if>
-            <if test="stuIdcard != null">
+            <if test="stuIDcard != null">
                 stu_IDcard,
             </if>
             <if test="stuAddress != null">
@@ -130,8 +130,8 @@
             <if test="nation != null">
                 #{nation.id},
             </if>
-            <if test="stuIdcard != null">
-                #{stuIdcard},
+            <if test="stuIDcard != null">
+                #{stuIDcard},
             </if>
             <if test="stuAddress != null">
                 #{stuAddress},
@@ -175,8 +175,8 @@
             <if test="nation != null">
                 nation_id = #{nation.id},
             </if>
-            <if test="stuIdcard != null">
-                stu_IDcard = #{stuIdcard},
+            <if test="stuIDcard != null">
+                stu_IDcard = #{stuIDcard},
             </if>
             <if test="stuAddress != null">
                 stu_address = #{stuAddress},
@@ -185,6 +185,12 @@
                 school_roll_id = #{schoolRoll.id},
             </if>
         </set>
+        where stu_id = #{stuId}
+    </update>
+
+    <update id="updateSchoolRoll" parameterType="student">
+        update student
+        set school_roll_id = #{schoolRoll.id}
         where stu_id = #{stuId}
     </update>
 
