@@ -96,17 +96,6 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="学籍状态：" prop="schoolRoll">
-                <el-select v-model="student.schoolRoll.id" placeholder="请选择">
-                    <el-option
-                            v-for="item in schoolRollList"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="handleCreateCancel">取 消</el-button>

@@ -28,4 +28,9 @@ public class VariationServiceImpl implements VariationService {
     public List<Variation> selectByStu(String stuId) {
         return dao.selectByStu(stuId);
     }
+
+    @Override
+    public List<Variation> findAll() {
+        return dao.findAll();
+    }
 }

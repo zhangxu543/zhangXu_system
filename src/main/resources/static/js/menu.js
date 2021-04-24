@@ -24,6 +24,11 @@ var nemu = {
 				"title": "奖罚列表",
 				"linkUrl": "/awarePunishes",
 				"children": []
+			},{
+				"path": "/2-3",
+				"title": "学籍变动记录",
+				"linkUrl": "/variations",
+				"children": []
 			}
 			]
 		},

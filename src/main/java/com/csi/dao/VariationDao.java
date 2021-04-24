@@ -16,6 +16,6 @@ import java.util.List;
 public interface VariationDao {
     @Insert("insert into Variation(stu_id,times,description) value(#{student.stuId},#{time},#{description})")
     void insert(Variation change);
-
     List<Variation> selectByStu(@Param("stuId") String stuId);
+    List<Variation> findAll();
 }

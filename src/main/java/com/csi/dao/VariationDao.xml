@@ -15,4 +15,8 @@
         select * from Variation where stu_id=#{stuId}
     </select>
 
+    <select id="findAll" resultMap="variationResult" >
+        select * from Variation
+    </select>
+
 </mapper>

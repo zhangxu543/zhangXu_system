@@ -88,6 +88,12 @@ public class TestController {
         return "admin/teaRankList";
     }
 
+    @RequestMapping("/variations")
+    public String variations() {
+        return "admin/variationList";
+    }
+
+
     @RequestMapping("/grades")
     public String grades() {
         return "teacher/gradeList";

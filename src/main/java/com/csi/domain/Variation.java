@@ -11,17 +11,10 @@ import java.util.Date;
 public class Variation {
     private int id;
     private Student student;
-    private Date time;
+    private String time;
     private String description;
 
     public Variation() {
-    }
-
-    public Variation(int id, Student student, Date time, String desc) {
-        this.id = id;
-        this.student = student;
-        this.time = time;
-        this.description = desc;
     }
 
     public int getId() {
@@ -40,20 +33,20 @@ public class Variation {
         this.student = student;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public String getDesc() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDesc(String desc) {
-        this.description = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.csi.controller;
 
+import com.csi.domain.AwarePunish;
 import com.csi.domain.Student;
 import com.csi.domain.Variation;
 import com.csi.service.StudentService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,8 @@ public class VariationController {
         logger.info("学籍========" + variation);
         logger.info("学籍变更========" + student.getStuId() + "---------" + student.getSchoolRoll().getId());
         studentService.updateSchoolRoll(student);
-        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String date=simpleDateFormat.format(new Date());
         System.out.println(date);
         variation.setTime(date);
         service.insert(variation);
@@ -51,5 +54,12 @@ public class VariationController {
         return result;
     }
 
+    @RequestMapping("/findAll")
+    @ResponseBody
+    public List<Variation> findAll(){
+        List<Variation> list = service.findAll();
+        logger.info("学籍变更个数======"+list.size());
+        return list;
+    }
 
 }

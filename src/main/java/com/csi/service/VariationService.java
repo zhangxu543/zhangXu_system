@@ -16,4 +16,5 @@ import java.util.List;
 public interface VariationService {
     void insert(Variation change);
     List<Variation> selectByStu(@Param("stuId") String stuId);
+    List<Variation> findAll();
 }
