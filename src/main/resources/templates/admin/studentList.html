@@ -19,12 +19,13 @@
     <div class="content-header common-search-border1">
         <el-button class="butAdd" @click="handleCreate"><i class="el-icon-plus" aria-hidden="true"></i> 新增学生信息
         </el-button>
+        <el-button class="butAdd" @click="handleCreate2"><i class="el-icon-plus" aria-hidden="true"></i> 批量新增学生信息
+        </el-button>
     </div>
     <div class="app-container">
         <div class="box common-search-border2">
             <div class="filter-container">
                 <!-- 搜索栏 -->
-
                 <el-form :inline="true" :model="student0" ref="student0" class="formInfo" label-width="70px">
                     <el-form-item label="学号" label-width="40px" prop="stuId">
                         <el-input placeholder="请输入" v-model="student0.stuId" style="width: 200px;"
@@ -268,6 +269,33 @@
                 </div>
             </el-dialog>
 
+            <el-dialog title="批量新增学生" align="center" :visible.sync="dialogFormVisible2" width="40%" top="8vh">
+                <!--<el-upload
+                        ref="upload"
+                        class="upload-demo"
+                        action=""
+                        accept=".xlsx"
+                        :limit=limit
+                        :auto-upload="false"
+                        :before-upload="beforeUpload"
+                        :on-change="handleChange"
+                        :on-remove="handleRemove"
+                        :on-exceed="handleExceed"
+                        :on-success="handleSuccess"
+                        :on-error="handleError"
+                        :http-request="uploadFunc"
+                >
+                    <el-button size="small" type="primary">选取文件</el-button>
+
+                </el-upload>-->
+                <el-button @click="download">模板下载</el-button>
+                <el-form method="post" enctype="multipart/form-data" id="form" action="/student/insertExcel">
+                    <input type="file" name="filename"/>
+                    <input type="submit" value="提交上传"/>
+                </el-form>
+
+            </el-dialog>
+
             <!-- end -->
         </div>
 
@@ -286,6 +314,8 @@
         el: '#app',
         data() {
             return {
+                limit: 1,  // 上传excell时，同时允许上传的最大数
+                fileList: [],   // excel文件列表
                 result: {
                     code: '',
                     message: '',
@@ -505,6 +535,7 @@
                 dialogFormVisible: false,
                 dialogFormVisible0: false,
                 dialogFormVisible1: false,
+                dialogFormVisible2: false,
                 form: {
                     dirName: ''
                 },
@@ -546,6 +577,9 @@
         },
 
         methods: {
+            download:function (){
+                window.location.href="file/student"
+            },
             findSchoolRolls: function () {
                 axios.get("/schoolRoll/findAll").then(response => {
                     this.schoolRollList = response.data;
@@ -626,17 +660,17 @@
 
             /*------------------------*/
             //Enter键查询
-            handleFilter() {
+          /*  handleFilter() {
                 this.getList()
-            },
+            },*/
             //清除
             handleRest() {
                 this.student0 = {}
             },
-            //搜索
+            /*//搜索
             handleSearch() {
                 this.getList();
-            },
+            },*/
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
                 this.currentPage = 1;
@@ -664,7 +698,9 @@
                 this.variation.student.stuName = row.stuName;
                 this.variation.student.schoolRoll.name = row.schoolRoll.name;
                 this.dialogFormVisible1 = true;
-
+            },
+            handleCreate2() {
+                this.dialogFormVisible2 = true;
             },
             //新增取消
             handleCreateCancel() {
@@ -681,8 +717,10 @@
                 this.dialogFormVisible1 = false;
                 this.variation.description = '';
             },
-
-            // 删除
+            handleCreateCancel2() {
+                this.dialogFormVisible2 = false;
+            },
+          /*  // 删除
             handleDeleted(row) {
                 this.$confirm('此操作将永久删除方向 ' + ', 是否继续?', '提示', {
                     type: 'warning'
@@ -691,8 +729,65 @@
                 }).catch(() => {
                     this.$message.info('已取消操作!')
                 });
+            },*/
+            // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
+            beforeUpload(file) {
+                let extension = file.name.substring(file.name.lastIndexOf('.')+1)
+                let size = file.size / 1024 / 1024
+                if(extension !== 'xlsx') {
+                    this.$message.warning('只能上传后缀是.xlsx的文件')
+                }
+                if(size > 10) {
+                    this.$message.warning('文件大小不得超过10M')
+                }
             },
 
+            // 文件状态改变
+            handleChange(file, fileList) {
+                if (file) {
+                    this.fileList = fileList.slice(-3)
+                }
+            },
+
+            // 删除文件
+            handleRemove(file, fileList) {
+                this.fileList = []
+            },
+
+            // 文件超出个数限制
+            handleExceed(files, fileList) {
+                this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`)
+            },
+
+            // 文件上传成功
+            handleSuccess(res, file, fileList) {
+                this.$message.success('文件上传成功')
+            },
+
+            // 文件上传失败
+            handleError(err, file, fileList) {
+                this.$message.error('文件上传失败')
+            },
+            uploadFunc(item){
+                this.fileList.push(item.file);
+            },
+
+            // 覆盖默认的上传行为，自定义上传的实现
+            uploadFile() {
+                if (this.fileList.length === 0){
+                    this.$message.warning('请上传文件')
+                } else {
+                    const data = new FormData()
+                    this.fileList.forEach(function (file) {
+                        data.append('file',file);
+                    })
+                    axios.post("/student/insertExcel",data).then(response => {
+                        this.$message.success(response.data.message);
+                    }).catch(error =>{
+                        console.dir(error)
+                    })
+                }
+            }
 
         },
 

@@ -1,29 +1,27 @@
 package com.csi.controller;
 
 
-import com.csi.domain.Nation;
-import com.csi.domain.Politic;
-import com.csi.domain.SchoolRoll;
-import com.csi.domain.Student;
+import com.csi.domain.*;
+import com.csi.service.MajorService;
 import com.csi.service.StudentService;
+import com.csi.util.PoiUpload;
 import com.csi.util.Result;
-import org.apache.ibatis.annotations.ResultMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.annotation.Native;
+import java.util.*;
 
 
 @Controller
@@ -33,6 +31,58 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private MajorService majorService;
+
+    @Autowired
+    private PoiUpload poiUpload;
+
+    @RequestMapping("/insertExcel")
+    @ResponseBody
+    public String insertExcel(HttpServletRequest request) throws Exception {
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        InputStream inputStream =null;
+        List<List<Object>> list = null;
+        MultipartFile file = multipartRequest.getFile("filename");
+        if(file.isEmpty()){
+            return "文件不能为空";
+        }
+        inputStream = file.getInputStream();
+        list =poiUpload.getBankListByExcel(inputStream,file.getOriginalFilename());
+        inputStream.close();
+        //连接数据库部分
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                List<Object> lo = list.get(i);
+                Student student=new Student();
+                student.setStuId(String.valueOf(lo.get(0)));
+                student.setStuName(String.valueOf(lo.get(1)));
+                student.setStuClass(String.valueOf(lo.get(2)));
+                student.setStuSex(String.valueOf(lo.get(3)));
+                student.setStuDorm(String.valueOf(lo.get(5)));
+                Major major = majorService.findByName(String.valueOf(lo.get(4)));
+                student.setMajor(major);
+                student.setStuPassword("123456");
+                Nation nation=new Nation();
+                nation.setId(1);
+                student.setNation(nation);
+                Politic politic=new Politic();
+                politic.setId(1);
+                student.setPolitic(politic);
+                SchoolRoll schoolRoll=new SchoolRoll();
+                schoolRoll.setId(1);
+                student.setSchoolRoll(schoolRoll);
+                studentService.insert(student);
+            }
+        }catch(Exception e){
+            return "上传失败";
+        }
+        return "上传成功";
+    }
+
+
+
 
     @RequestMapping("/list")
     @ResponseBody

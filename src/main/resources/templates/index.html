@@ -132,21 +132,24 @@
         },
         methods: {
             login:function (){
-                axios.post("/login/"+this.loginForm.username+"/"+this.loginForm.password+"/"+this.loginForm.status).then(response =>{
-                    if (response.data.code==3){
-                        window.location.href="/adminIndex";
-                    }else if(response.data.code==2){
-                        window.location.href="/teacherIndex";
-                    }else if(response.data.code==1){
-                        window.location.href="/studentIndex";
-                    }else{
-                        this.$message.error(response.data.message);
-                    }
+                if (this.loginForm.username.length > 0 && this.loginForm.password.length > 0)
+                    axios.post("/login/" + this.loginForm.username + "/" + this.loginForm.password + "/" + this.loginForm.status).then(response => {
+                        if (response.data.code == 3) {
+                            window.location.href = "/adminIndex";
+                        } else if (response.data.code == 2) {
+                            window.location.href = "/teacherIndex";
+                        } else if (response.data.code == 1) {
+                            window.location.href = "/studentIndex";
+                        } else {
+                            this.$message.error(response.data.message);
+                        }
 
 
-                }).catch(error =>{
-                    console.dir(error)
-                })
+                    }).catch(error => {
+                        console.dir(error)
+                    })
+                else
+                    this.$message.error("账号密码不可为空！");
             }
 
         }

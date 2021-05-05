@@ -25,6 +25,11 @@ public class MajorServiceImpl implements MajorService {
     }
 
     @Override
+    public Major findByName(String name) {
+        return dao.findByName(name);
+    }
+
+    @Override
     public List<Major> list() {
         return dao.list();
     }

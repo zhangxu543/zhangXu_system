@@ -40,4 +40,8 @@ public class MajorTest {
         Major major=new Major(5,"计算机科学与技术",1);
         dao.update(major);
     }
+    @Test
+    void s(){
+        System.out.println(dao.findByName("软件工程"));
+    }
 }

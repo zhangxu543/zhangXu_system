@@ -54,7 +54,7 @@ var nemu = {
 				"children": []
 			},{
 				"path": "/4-2",
-				"title": "部门列表",
+				"title": "教师部门列表",
 				"linkUrl": "/depts",
 				"children": []
 			},{

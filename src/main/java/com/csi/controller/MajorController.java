@@ -23,10 +23,8 @@ import java.util.List;
 public class MajorController {
     private static final Logger logger = LoggerFactory.getLogger(MajorController.class);
 
-
     @Autowired
     private MajorService majorService;
-
 
     @RequestMapping("/findAll")
     public List<Major> findAll(){

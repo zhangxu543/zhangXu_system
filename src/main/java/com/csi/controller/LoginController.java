@@ -26,7 +26,6 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -40,7 +39,10 @@ public class LoginController {
         if("3".equals(status)){
             Teacher teacher = teacherService.login(id, password);
             logger.info("登录信息====="+teacher);
-            if("是".equals(teacher.getTeaState())){
+            if(teacher==null){
+                result.setCode(4);
+                result.setMessage("账号密码错误！");
+            }else if("是".equals(teacher.getTeaState())){
                 result.setCode(3);
                 session.setAttribute("user",teacher);
             }else {

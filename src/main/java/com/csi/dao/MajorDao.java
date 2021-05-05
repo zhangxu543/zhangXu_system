@@ -20,6 +20,9 @@ public interface MajorDao {
     @Select("SELECT * FROM major WHERE id=#{id}")
     Major findById(int id) ;
 
+    @Select("SELECT * FROM major WHERE name=#{name}")
+    Major findByName(String name);
+
     List<Major> list();
 
     List<Major> findByLike(Major major);

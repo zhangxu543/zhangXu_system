@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface MajorService {
     Major findById(int id) ;
+    Major findByName(String name);
     List<Major> list();
     List<Major> listByDept(int dept_id);
     List<Major> findByLike(Major major);
